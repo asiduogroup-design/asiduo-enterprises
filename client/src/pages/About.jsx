@@ -1,51 +1,71 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const About = () => {
   return (
-    <main className="page">
-      <section className="page-hero">
-        <p className="eyebrow">Company</p>
-        <h1>About Asiduo Enterprises</h1>
-        <p>
-          Asiduo Enterprises is a metrology partner for manufacturers who demand
-          accuracy, speed, and compliance. We support measurement systems across
-          dimensional, force, pressure, and torque domains with traceable
-          calibration and audit-ready documentation.
-        </p>
-      </section>
-
-      <section className="section about">
-        <div>
-          <h2>Our Mission</h2>
+    <main className="page about-page">
+      <section className="section about-wrap">
+        <div className="info-card">
+          <h3>Our Story</h3>
+          <div className="card-underline" />
           <p>
-            To deliver reliable measurement confidence that helps our clients
-            manufacture with zero compromise. We combine experienced engineers,
-            modern labs, and clear reporting to keep your quality systems
-            always audit-ready.
+            Welcome to Asiduo Enterprises, a growing force in metrology and
+            calibration services. We support manufacturers with precision
+            instruments, reliable traceability, and audit-ready documentation.
+          </p>
+          <p>
+            Our product range spans dimensional tools, surface measurement
+            systems, torque and force solutions, and advanced metrology
+            accessories. Every solution is backed by expert guidance and
+            responsive service.
+          </p>
+          <p>
+            Beyond our core offerings, we focus on continuous improvement and
+            customer success, ensuring quality teams can measure with confidence
+            at every stage of production.
           </p>
         </div>
-        <div className="about-grid">
-          <div className="about-card">
-            <h3>Dedicated Engineering</h3>
-            <p>
-              Specialists who understand your production timelines and quality
-              standards.
-            </p>
+
+        <div className="info-card">
+          <h3>Company Details</h3>
+          <div className="card-underline" />
+          <div className="details-grid">
+            <div className="detail-item">
+              <span>Company Name</span>
+              <strong>ASIDUO ENTERPRISES</strong>
+            </div>
+            <div className="detail-item">
+              <span>Year Established</span>
+              <strong>2009</strong>
+            </div>
+            <div className="detail-item">
+              <span>Business Type</span>
+              <strong>Service Provider, Distributor</strong>
+            </div>
+            <div className="detail-item">
+              <span>Main Products</span>
+              <strong>Precision Metrology Instruments</strong>
+            </div>
+            <div className="detail-item">
+              <span>Location</span>
+              <strong>Chennai, Bangalore, Coimbatore</strong>
+            </div>
+            <div className="detail-item">
+              <span>Employees</span>
+              <strong>50+ People</strong>
+            </div>
           </div>
-          <div className="about-card">
-            <h3>Transparent Reporting</h3>
-            <p>
-              Clean, traceable certificates with uncertainty budgets and
-              compliance references.
-            </p>
-          </div>
-          <div className="about-card">
-            <h3>Responsive Support</h3>
-            <p>
-              Rapid turnaround schedules and on-site service availability across
-              India.
-            </p>
-          </div>
+        </div>
+
+        <div className="cta-card">
+          <h3>Ready to experience the Asiduo difference?</h3>
+          <p>
+            Join hundreds of satisfied customers who improved their measurement
+            capabilities with our precision tools and expert support.
+          </p>
+          <NavLink className="btn btn-primary" to="/contact">
+            Contact Us Today
+          </NavLink>
         </div>
       </section>
     </main>

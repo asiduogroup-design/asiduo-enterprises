@@ -78,12 +78,6 @@ const Navbar = () => {
         >
           Career
         </NavLink>
-        <NavLink
-          to="/contact"
-          className={({ isActive }) => (isActive ? "active" : undefined)}
-        >
-          Contact
-        </NavLink>
         {isLoggedIn && (
           <NavLink
             to="/admin/dashboard"
@@ -102,7 +96,15 @@ const Navbar = () => {
             aria-haspopup="menu"
             aria-expanded={open}
           >
-            <span className="user-dot" aria-hidden="true" />
+            <svg
+              className="user-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="12" cy="8" r="3.5" />
+              <path d="M5.5 19.5c1.8-3.4 11.2-3.4 13 0" />
+            </svg>
           </button>
           {open && (
             <div className="user-menu" role="menu">
