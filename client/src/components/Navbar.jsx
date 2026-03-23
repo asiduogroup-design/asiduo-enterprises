@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import {
+  HiOutlineDocumentText,
+  HiOutlineDocument,
+  HiOutlineChatBubbleLeftRight,
+  HiOutlineCalendarDays,
+} from "react-icons/hi2";
 import { setAuthToken } from "../services/api.js";
 
 const Navbar = () => {
@@ -66,12 +72,41 @@ const Navbar = () => {
         >
           Clients
         </NavLink>
-        <NavLink
-          to="/about"
-          className={({ isActive }) => (isActive ? "active" : undefined)}
-        >
-          Company
-        </NavLink>
+        <div className="nav-dropdown">
+          <button className="nav-dropbtn" type="button">
+            Company
+            <span className="nav-caret" aria-hidden="true" />
+          </button>
+          <div className="nav-dropmenu">
+            <NavLink to="/about" className="nav-dropitem">
+              <span className="nav-dropicon" aria-hidden="true">
+                <HiOutlineDocument />
+              </span>
+              <div>
+                <strong>About</strong>
+                <span>Learn about our company values</span>
+              </div>
+            </NavLink>
+            <NavLink to="/testimonials" className="nav-dropitem">
+              <span className="nav-dropicon" aria-hidden="true">
+                <HiOutlineChatBubbleLeftRight />
+              </span>
+              <div>
+                <strong>Testimonials</strong>
+                <span>What our clients say about us</span>
+              </div>
+            </NavLink>
+            <NavLink to="/news" className="nav-dropitem">
+              <span className="nav-dropicon" aria-hidden="true">
+                <HiOutlineCalendarDays />
+              </span>
+              <div>
+                <strong>News</strong>
+                <span>Upcoming events and updates</span>
+              </div>
+            </NavLink>
+          </div>
+        </div>
         <NavLink
           to="/careers"
           className={({ isActive }) => (isActive ? "active" : undefined)}

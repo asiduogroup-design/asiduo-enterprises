@@ -4,6 +4,14 @@ import { NavLink } from "react-router-dom";
 const About = () => {
   return (
     <main className="page about-page">
+      <section className="page-hero about-hero">
+        <p className="eyebrow">About</p>
+        <h1>About Asiduo Enterprises</h1>
+        <p>
+          Precision-first metrology solutions backed by responsive service and
+          audit-ready documentation.
+        </p>
+      </section>
       <section className="section about-wrap">
         <div className="info-card">
           <h3>Our Story</h3>

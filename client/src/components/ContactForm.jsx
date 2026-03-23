@@ -8,6 +8,7 @@ const ContactForm = () => {
     company: "",
     email: "",
     phone: "",
+    interest: "",
     subject: "",
     message: "",
   });
@@ -27,6 +28,7 @@ const ContactForm = () => {
         company: "",
         email: "",
         phone: "",
+        interest: "",
         subject: "",
         message: "",
       });
@@ -52,6 +54,7 @@ const ContactForm = () => {
           placeholder="Company"
           value={form.company}
           onChange={handleChange}
+          required
         />
         <input
           name="email"
@@ -66,13 +69,22 @@ const ContactForm = () => {
           placeholder="Phone"
           value={form.phone}
           onChange={handleChange}
+          required
         />
       </div>
       <input
+        name="interest"
+        placeholder="Products/Services looking for"
+        value={form.interest}
+        onChange={handleChange}
+        required
+      />
+      <input
         name="subject"
-        placeholder="Subject"
+        placeholder="Enter your enquiry details"
         value={form.subject}
         onChange={handleChange}
+        required
       />
       <textarea
         name="message"
@@ -80,7 +92,6 @@ const ContactForm = () => {
         rows="5"
         value={form.message}
         onChange={handleChange}
-        required
       />
       {status.message && (
         <p className={`status ${status.type}`}>{status.message}</p>

@@ -6,6 +6,7 @@ const enquirySchema = new mongoose.Schema(
     company: { type: String, trim: true },
     email: { type: String, required: true, trim: true, lowercase: true },
     phone: { type: String, trim: true },
+    interest: { type: String, trim: true },
     subject: { type: String, trim: true },
     message: { type: String, required: true, trim: true },
   },

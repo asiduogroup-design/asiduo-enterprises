@@ -29,13 +29,13 @@ const AdminLogin = () => {
   };
 
   return (
-    <main className="page admin-page">
-      <section className="page-hero">
-        <p className="eyebrow">Admin</p>
-        <h1>Admin Login</h1>
-        <p>Authorized team members only.</p>
-      </section>
-      <section className="section admin-card">
+    <main className="admin-login-shell">
+      <div className="admin-login-card">
+        <div className="admin-login-header">
+          <p className="eyebrow">Admin</p>
+          <h1>Sign in</h1>
+          <p>Authorized team members only.</p>
+        </div>
         <form className="admin-form" onSubmit={handleSubmit}>
           <input
             name="email"
@@ -60,7 +60,7 @@ const AdminLogin = () => {
             Login
           </button>
         </form>
-      </section>
+      </div>
     </main>
   );
 };
