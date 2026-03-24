@@ -1,19 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   HiOutlineDocumentText,
   HiOutlineDocument,
   HiOutlineChatBubbleLeftRight,
   HiOutlineCalendarDays,
+  HiOutlineMagnifyingGlass,
 } from "react-icons/hi2";
 import { setAuthToken } from "../services/api.js";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(
     Boolean(localStorage.getItem("admin_token"))
   );
+  const { language, setLanguage, t } = useLanguage();
+  const searchInputRef = useRef(null);
 
   useEffect(() => {
     const handler = () => {
@@ -28,11 +35,57 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const nextSearch = params.get("search") || "";
+    setSearchTerm(nextSearch);
+    setSearchOpen(Boolean(nextSearch));
+  }, [location.search]);
+
+  useEffect(() => {
+    if (searchOpen) {
+      searchInputRef.current?.focus();
+    }
+  }, [searchOpen]);
+
   const handleToggle = () => setOpen((prev) => !prev);
 
   const handleLogin = () => {
     setOpen(false);
     navigate("/admin");
+  };
+
+  const handleLanguageChange = (event) => {
+    setLanguage(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const query = searchTerm.trim();
+
+    if (!query) {
+      setSearchOpen(false);
+      navigate("/products");
+      return;
+    }
+
+    navigate(`/products?search=${encodeURIComponent(query)}`);
+  };
+
+  const handleSearchToggle = () => {
+    if (searchOpen && !searchTerm.trim()) {
+      setSearchOpen(false);
+      navigate("/products");
+      return;
+    }
+
+    setSearchOpen(true);
+  };
+
+  const handleSearchBlur = () => {
+    if (!searchTerm.trim()) {
+      setSearchOpen(false);
+    }
   };
 
   const handleLogout = () => {
@@ -52,29 +105,29 @@ const Navbar = () => {
           end
           className={({ isActive }) => (isActive ? "active" : undefined)}
         >
-          Home
+          {t.nav.home}
         </NavLink>
         <NavLink
           to="/products"
           className={({ isActive }) => (isActive ? "active" : undefined)}
         >
-          Products
+          {t.nav.products}
         </NavLink>
         <NavLink
           to="/services"
           className={({ isActive }) => (isActive ? "active" : undefined)}
         >
-          Metrology
+          {t.nav.metrology}
         </NavLink>
         <NavLink
           to="/clients"
           className={({ isActive }) => (isActive ? "active" : undefined)}
         >
-          Clients
+          {t.nav.clients}
         </NavLink>
         <div className="nav-dropdown">
           <button className="nav-dropbtn" type="button">
-            Company
+            {t.nav.company}
             <span className="nav-caret" aria-hidden="true" />
           </button>
           <div className="nav-dropmenu">
@@ -83,8 +136,8 @@ const Navbar = () => {
                 <HiOutlineDocument />
               </span>
               <div>
-                <strong>About</strong>
-                <span>Learn about our company values</span>
+                <strong>{t.nav.about}</strong>
+                <span>{t.nav.aboutDesc}</span>
               </div>
             </NavLink>
             <NavLink to="/testimonials" className="nav-dropitem">
@@ -92,8 +145,8 @@ const Navbar = () => {
                 <HiOutlineChatBubbleLeftRight />
               </span>
               <div>
-                <strong>Testimonials</strong>
-                <span>What our clients say about us</span>
+                <strong>{t.nav.testimonials}</strong>
+                <span>{t.nav.testimonialsDesc}</span>
               </div>
             </NavLink>
             <NavLink to="/news" className="nav-dropitem">
@@ -101,8 +154,8 @@ const Navbar = () => {
                 <HiOutlineCalendarDays />
               </span>
               <div>
-                <strong>News</strong>
-                <span>Upcoming events and updates</span>
+                <strong>{t.nav.news}</strong>
+                <span>{t.nav.newsDesc}</span>
               </div>
             </NavLink>
           </div>
@@ -111,18 +164,68 @@ const Navbar = () => {
           to="/careers"
           className={({ isActive }) => (isActive ? "active" : undefined)}
         >
-          Career
+          {t.nav.career}
         </NavLink>
         {isLoggedIn && (
           <NavLink
             to="/admin/dashboard"
             className={({ isActive }) => (isActive ? "active" : undefined)}
           >
-            Admin
+            {t.nav.admin}
           </NavLink>
         )}
       </nav>
       <div className="nav-actions">
+        <form
+          className={`nav-search${searchOpen ? " is-open" : ""}`}
+          onSubmit={handleSearchSubmit}
+        >
+          <label className="sr-only" htmlFor="navbar-search">
+            {t.nav.searchLabel}
+          </label>
+          <button
+            className="nav-search-toggle"
+            type="button"
+            onClick={handleSearchToggle}
+            aria-label={t.nav.searchLabel}
+            aria-expanded={searchOpen}
+            aria-controls="navbar-search"
+          >
+            <HiOutlineMagnifyingGlass aria-hidden="true" />
+          </button>
+          {searchOpen && (
+            <div className="nav-search-panel">
+              <input
+                ref={searchInputRef}
+                id="navbar-search"
+                type="search"
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+                onBlur={handleSearchBlur}
+                placeholder={t.nav.searchPlaceholder}
+                aria-label={t.nav.searchLabel}
+              />
+            </div>
+          )}
+        </form>
+        <div className="nav-language">
+          <label className="sr-only" htmlFor="language-select">
+            {t.nav.selectLanguage}
+          </label>
+          <select
+            id="language-select"
+            className="language-select"
+            value={language}
+            onChange={handleLanguageChange}
+            aria-label={t.nav.selectLanguage}
+          >
+            <option>English (USA)</option>
+            <option>English (India)</option>
+            <option>Italian</option>
+            <option>Spanish</option>
+            <option>German</option>
+          </select>
+        </div>
         <div className="nav-user" title="Account">
           <button
             className="user-button"
@@ -145,18 +248,18 @@ const Navbar = () => {
             <div className="user-menu" role="menu">
               {isLoggedIn ? (
                 <button type="button" onClick={handleLogout}>
-                  Logout
+                  {t.nav.logout}
                 </button>
               ) : (
                 <button type="button" onClick={handleLogin}>
-                  Login
+                  {t.nav.login}
                 </button>
               )}
             </div>
           )}
         </div>
         <NavLink className="btn btn-primary" to="/contact">
-          Contact Us
+          {t.nav.contactUs}
         </NavLink>
       </div>
     </header>

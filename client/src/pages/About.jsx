@@ -1,79 +1,131 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import AnimatedHeadline from "../components/AnimatedHeadline.jsx";
+import { useLanguage } from "../context/LanguageContext.jsx";
+
+const details = [
+  { key: "nature", value: "Service Provider and Others" },
+  { key: "type", value: "Merchant" },
+  { key: "industry", value: "Trade Promotion Organisations, International Trade Organisations" },
+  { key: "legal", value: "Proprietorship" },
+  { key: "turnover", value: "0 - 40 L" },
+  { key: "gstDate", value: "01-02-2023" },
+  { key: "iec", value: "GFPPS1399A" },
+  { key: "gst", value: "09GFPPS1399A1ZW" },
+];
+
+const copyByLanguage = {
+  "English (USA)": {
+    title: "About Us",
+    paragraphs: [
+      "We are engaged in the trade promotion sector, operating primarily from Ghaziabad, India. Our activities focus on supporting market access, business visibility, and commercial growth.",
+      "Our approach is built around dependable service, alignment with standard commercial practices, and understanding the needs of buyers, suppliers, and business partners.",
+    ],
+    facts: "Company Facts",
+    labels: {
+      nature: "Nature of Business",
+      type: "Incorporation Type",
+      industry: "Industry",
+      legal: "Legal Status of Firm",
+      turnover: "Annual Turnover",
+      gstDate: "GST Registration Date",
+      iec: "Import Export Code (IEC)",
+      gst: "GST Number",
+    },
+  },
+  "English (India)": null,
+  Italian: {
+    title: "Chi Siamo",
+    paragraphs: [
+      "Operiamo nel settore della promozione commerciale principalmente da Ghaziabad, India, supportando accesso al mercato, visibilita aziendale e crescita commerciale.",
+      "Il nostro approccio si basa su servizio affidabile, pratiche commerciali standard e comprensione delle esigenze di acquirenti, fornitori e partner.",
+    ],
+    facts: "Dati aziendali",
+    labels: {
+      nature: "Natura dell'attivita",
+      type: "Tipo di incorporazione",
+      industry: "Settore",
+      legal: "Stato legale dell'impresa",
+      turnover: "Fatturato annuo",
+      gstDate: "Data registrazione GST",
+      iec: "Codice Import Export (IEC)",
+      gst: "Numero GST",
+    },
+  },
+  Spanish: {
+    title: "Sobre Nosotros",
+    paragraphs: [
+      "Operamos en el sector de promocion comercial principalmente desde Ghaziabad, India, apoyando acceso al mercado, visibilidad comercial y crecimiento.",
+      "Nuestro enfoque se basa en un servicio confiable, practicas comerciales estandar y comprension de las necesidades de compradores, proveedores y socios.",
+    ],
+    facts: "Datos de la empresa",
+    labels: {
+      nature: "Naturaleza del negocio",
+      type: "Tipo de constitucion",
+      industry: "Industria",
+      legal: "Estado legal de la firma",
+      turnover: "Facturacion anual",
+      gstDate: "Fecha de registro GST",
+      iec: "Codigo de Importacion Exportacion (IEC)",
+      gst: "Numero GST",
+    },
+  },
+  German: {
+    title: "Uber Uns",
+    paragraphs: [
+      "Wir sind im Bereich Handelsforderung tatig und arbeiten hauptsachlich von Ghaziabad, Indien, aus, um Marktzugang, Sichtbarkeit und Wachstum zu unterstutzen.",
+      "Unser Ansatz basiert auf zuverlassigem Service, standardnahen Geschaftspraktiken und dem Verstandnis fur die Bedurfnisse von Kaufern, Lieferanten und Partnern.",
+    ],
+    facts: "Unternehmensdaten",
+    labels: {
+      nature: "Art des Geschafts",
+      type: "Gesellschaftsform",
+      industry: "Branche",
+      legal: "Rechtsstatus des Unternehmens",
+      turnover: "Jahresumsatz",
+      gstDate: "GST-Registrierungsdatum",
+      iec: "Import-Export-Code (IEC)",
+      gst: "GST-Nummer",
+    },
+  },
+};
+copyByLanguage["English (India)"] = copyByLanguage["English (USA)"];
 
 const About = () => {
+  const { language } = useLanguage();
+  const copy = copyByLanguage[language] || copyByLanguage["English (USA)"];
+
   return (
     <main className="page about-page">
-      <section className="page-hero about-hero">
-        <p className="eyebrow">About</p>
-        <h1>About Asiduo Enterprises</h1>
-        <p>
-          Precision-first metrology solutions backed by responsive service and
-          audit-ready documentation.
-        </p>
-      </section>
-      <section className="section about-wrap">
-        <div className="info-card">
-          <h3>Our Story</h3>
-          <div className="card-underline" />
-          <p>
-            Welcome to Asiduo Enterprises, a growing force in metrology and
-            calibration services. We support manufacturers with precision
-            instruments, reliable traceability, and audit-ready documentation.
-          </p>
-          <p>
-            Our product range spans dimensional tools, surface measurement
-            systems, torque and force solutions, and advanced metrology
-            accessories. Every solution is backed by expert guidance and
-            responsive service.
-          </p>
-          <p>
-            Beyond our core offerings, we focus on continuous improvement and
-            customer success, ensuring quality teams can measure with confidence
-            at every stage of production.
-          </p>
-        </div>
-
-        <div className="info-card">
-          <h3>Company Details</h3>
-          <div className="card-underline" />
-          <div className="details-grid">
-            <div className="detail-item">
-              <span>Company Name</span>
-              <strong>ASIDUO ENTERPRISES</strong>
-            </div>
-            <div className="detail-item">
-              <span>Year Established</span>
-              <strong>2009</strong>
-            </div>
-            <div className="detail-item">
-              <span>Business Type</span>
-              <strong>Service Provider, Distributor</strong>
-            </div>
-            <div className="detail-item">
-              <span>Main Products</span>
-              <strong>Precision Metrology Instruments</strong>
-            </div>
-            <div className="detail-item">
-              <span>Location</span>
-              <strong>Chennai, Bangalore, Coimbatore</strong>
-            </div>
-            <div className="detail-item">
-              <span>Employees</span>
-              <strong>50+ People</strong>
-            </div>
+      <section className="section about-profile">
+        <div className="about-section-block">
+          <AnimatedHeadline
+            className="about-section-title"
+            text={copy.title}
+            variant="reveal-left"
+            staggerMs={26}
+            durationMs={760}
+          />
+          <div className="about-copy-card">
+            {copy.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
         </div>
 
-        <div className="cta-card">
-          <h3>Ready to experience the Asiduo difference?</h3>
-          <p>
-            Join hundreds of satisfied customers who improved their measurement
-            capabilities with our precision tools and expert support.
-          </p>
-          <NavLink className="btn btn-primary" to="/contact">
-            Contact Us Today
-          </NavLink>
+        <div className="about-section-block">
+          <h2 className="about-section-title">{copy.facts}</h2>
+          <div className="about-facts-card">
+            <div className="about-facts-grid">
+              {details.map((detail) => (
+                <article className="about-fact" key={detail.key}>
+                  <div className="about-fact-copy">
+                    <span>{copy.labels[detail.key]}</span>
+                    <strong>{detail.value}</strong>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </main>

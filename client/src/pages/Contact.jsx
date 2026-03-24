@@ -1,217 +1,98 @@
 import React, { useState } from "react";
 import ContactForm from "../components/ContactForm.jsx";
+import AnimatedHeadline from "../components/AnimatedHeadline.jsx";
+import { useLanguage } from "../context/LanguageContext.jsx";
+
+const copyByLanguage = {
+  "English (USA)": {
+    eyebrow: "Contact",
+    title: "Let's talk about your measurement goals",
+    intro: "Tell us about your instruments or calibration schedule and our engineers will respond within a business day.",
+    touchTitle: "Get in Touch",
+    touchCopy: "Have a question or need more information? Fill out the form and our team will reach you quickly.",
+    infoTitle: "Contact Information",
+    phone: "Phone",
+    email: "Email",
+    address: "Address",
+    person: "Contact Person",
+    extension: "Dial Extension",
+    map: "Map preview",
+    locateEyebrow: "Locate us",
+    locateTitle: "Visit our Ghaziabad office",
+    ctaTitle: "Need immediate assistance?",
+    ctaCopy: "Our experts are ready to help you find the right solution.",
+    call: "Call Us Now",
+    mail: "Email Us",
+  },
+  "English (India)": null,
+  Italian: { eyebrow: "Contatto", title: "Parliamo dei tuoi obiettivi di misura", intro: "Raccontaci dei tuoi strumenti o del programma di taratura e i nostri ingegneri risponderanno entro un giorno lavorativo.", touchTitle: "Mettiti in contatto", touchCopy: "Hai una domanda o ti servono informazioni? Compila il modulo e il nostro team ti rispondera rapidamente.", infoTitle: "Informazioni di contatto", phone: "Telefono", email: "Email", address: "Indirizzo", person: "Referente", extension: "Interno", map: "Anteprima mappa", locateEyebrow: "Dove siamo", locateTitle: "Visita il nostro ufficio di Ghaziabad", ctaTitle: "Hai bisogno di assistenza immediata?", ctaCopy: "I nostri esperti sono pronti ad aiutarti.", call: "Chiama ora", mail: "Scrivici" },
+  Spanish: { eyebrow: "Contacto", title: "Hablemos de sus objetivos de medicion", intro: "Cuentenos sobre sus instrumentos o calendario de calibracion y nuestros ingenieros responderan dentro de un dia habil.", touchTitle: "Pongase en contacto", touchCopy: "Tiene una pregunta o necesita mas informacion? Complete el formulario y nuestro equipo se comunicara pronto.", infoTitle: "Informacion de contacto", phone: "Telefono", email: "Correo", address: "Direccion", person: "Persona de contacto", extension: "Extension", map: "Vista previa del mapa", locateEyebrow: "Ubicacion", locateTitle: "Visite nuestra oficina de Ghaziabad", ctaTitle: "Necesita ayuda inmediata?", ctaCopy: "Nuestros expertos estan listos para ayudarle.", call: "Llamar ahora", mail: "Enviar correo" },
+  German: { eyebrow: "Kontakt", title: "Sprechen wir uber Ihre Messziele", intro: "Erzahlen Sie uns von Ihren Instrumenten oder Ihrem Kalibrierplan, und unsere Ingenieure melden sich innerhalb eines Werktages.", touchTitle: "Kontakt aufnehmen", touchCopy: "Haben Sie eine Frage oder benotigen Sie weitere Informationen? Fullen Sie das Formular aus und unser Team meldet sich schnell.", infoTitle: "Kontaktinformationen", phone: "Telefon", email: "E-Mail", address: "Adresse", person: "Ansprechpartner", extension: "Durchwahl", map: "Kartenvorschau", locateEyebrow: "Standort", locateTitle: "Besuchen Sie unser Buro in Ghaziabad", ctaTitle: "Benotigen Sie sofortige Hilfe?", ctaCopy: "Unsere Experten helfen Ihnen gern bei der richtigen Losung.", call: "Jetzt anrufen", mail: "E-Mail senden" },
+};
+copyByLanguage["English (India)"] = copyByLanguage["English (USA)"];
+
+const location = {
+  key: "Ghaziabad",
+  name: "Ghaziabad Office",
+  address:
+    "Ganga Shopping Complex, Sec 16 B, Vasundhara, Ghaziabad, UP, Ghaziabad-201012, Uttar Pradesh, India",
+  phone: "08047677121",
+  extension: "5505 when connected",
+  email: "sales@asiduoindia.com",
+  contactPerson: "SUSHIL KUMAR SINGH",
+};
 
 const Contact = () => {
-  const locations = [
-    {
-      key: "Chennai",
-      name: "Chennai Branch",
-      address: "Asiduo Enterprises, Industrial Estate, India",
-      phone: "+91 90000 00000",
-      email: "info@asiduo.com",
-    },
-    {
-      key: "Coimbatore",
-      name: "Coimbatore Branch",
-      address: "Asiduo Enterprises, Industrial Estate, India",
-      phone: "+91 90000 00000",
-      email: "info@asiduo.com",
-    },
-    {
-      key: "Bangalore",
-      name: "Bangalore Branch",
-      address: "Asiduo Enterprises, Industrial Estate, India",
-      phone: "+91 90000 00000",
-      email: "info@asiduo.com",
-    },
-    {
-      key: "Pune",
-      name: "Pune Branch",
-      address: "Asiduo Enterprises, Industrial Estate, India",
-      phone: "+91 90000 00000",
-      email: "info@asiduo.com",
-    },
-  ];
-  const [activeLocation, setActiveLocation] = useState(locations[0]);
+  const { language } = useLanguage();
+  const copy = copyByLanguage[language] || copyByLanguage["English (USA)"];
+  const [activeLocation] = useState(location);
 
   return (
     <main className="page">
       <section className="page-hero contact-hero">
-        <p className="eyebrow">Contact</p>
-        <h1>Let&apos;s talk about your measurement goals</h1>
-        <p>
-          Tell us about your instruments or calibration schedule and our
-          engineers will respond within a business day.
-        </p>
+        <p className="eyebrow">{copy.eyebrow}</p>
+        <AnimatedHeadline
+          text={copy.title}
+          variant="swing-up"
+          staggerMs={20}
+          durationMs={760}
+        />
+        <p>{copy.intro}</p>
       </section>
       <section className="section contact-grid">
         <div className="contact-card">
-          <h2>Get in Touch</h2>
-          <p>
-            Have a question or need more information? Fill out the form and our
-            team will reach you quickly.
-          </p>
+          <h2>{copy.touchTitle}</h2>
+          <p>{copy.touchCopy}</p>
           <ContactForm />
         </div>
         <div className="contact-card">
-          <h2>Contact Information</h2>
+          <h2>{copy.infoTitle}</h2>
           <div className="contact-info-list">
-            <div>
-              <h4>
-                <span className="contact-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" role="presentation">
-                    <path
-                      d="M6.5 3.5l3 3-2 2c1.4 2.6 3.5 4.7 6.1 6.1l2-2 3 3-2.2 2.2c-.5.5-1.2.7-1.9.5-3.2-.7-6.1-2.2-8.5-4.6S2.5 7.8 1.8 4.6c-.2-.7 0-1.4.5-1.9L4.5 1.5z"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinejoin="round"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </span>
-                Phone
-              </h4>
-              <p>+91 90000 00000</p>
-            </div>
-            <div>
-              <h4>
-                <span className="contact-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" role="presentation">
-                    <path
-                      d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                    />
-                    <path
-                      d="M22 8l-10 7L2 8"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-                Email
-              </h4>
-              <p>info@asiduo.com</p>
-            </div>
-            <div>
-              <h4>
-                <span className="contact-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" role="presentation">
-                    <path
-                      d="M12 3a7 7 0 0 1 7 7c0 5-7 11-7 11S5 15 5 10a7 7 0 0 1 7-7z"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                    />
-                    <circle
-                      cx="12"
-                      cy="10"
-                      r="2.5"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                    />
-                  </svg>
-                </span>
-                Address
-              </h4>
-              <p>Asiduo Enterprises, Industrial Estate, India</p>
-            </div>
+            <div><h4>{copy.phone}</h4><p>{activeLocation.phone}</p></div>
+            <div><h4>{copy.email}</h4><p>{activeLocation.email}</p></div>
+            <div><h4>{copy.address}</h4><p>{activeLocation.address}</p></div>
+            <div><h4>{copy.person}</h4><p>{activeLocation.contactPerson}</p></div>
+            <div><h4>{copy.extension}</h4><p>{activeLocation.extension}</p></div>
           </div>
-          <div className="contact-map">Map preview</div>
+          <div className="contact-map">{copy.map}</div>
         </div>
       </section>
 
       <section className="section locate-section">
         <div className="section-heading">
-          <p className="eyebrow">Locate us</p>
-          <h2>Find our offices across India</h2>
-        </div>
-        <div className="location-tabs">
-          {locations.map((loc) => (
-            <button
-              key={loc.key}
-              className={loc.key === activeLocation.key ? "active" : ""}
-              onClick={() => setActiveLocation(loc)}
-            >
-              {loc.key}
-            </button>
-          ))}
+          <p className="eyebrow">{copy.locateEyebrow}</p>
+          <h2>{copy.locateTitle}</h2>
         </div>
         <div className="location-grid">
-          <div className="location-map">Map preview</div>
+          <div className="location-map">{copy.map}</div>
           <div className="location-card">
             <h3>{activeLocation.name}</h3>
             <div className="contact-info-list">
-              <div>
-                <h4>
-                  <span className="contact-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" role="presentation">
-                      <path
-                        d="M12 3a7 7 0 0 1 7 7c0 5-7 11-7 11S5 15 5 10a7 7 0 0 1 7-7z"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                      />
-                      <circle
-                        cx="12"
-                        cy="10"
-                        r="2.5"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                      />
-                    </svg>
-                  </span>
-                  Address
-                </h4>
-                <p>{activeLocation.address}</p>
-              </div>
-              <div>
-                <h4>
-                  <span className="contact-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" role="presentation">
-                      <path
-                        d="M6.5 3.5l3 3-2 2c1.4 2.6 3.5 4.7 6.1 6.1l2-2 3 3-2.2 2.2c-.5.5-1.2.7-1.9.5-3.2-.7-6.1-2.2-8.5-4.6S2.5 7.8 1.8 4.6c-.2-.7 0-1.4.5-1.9L4.5 1.5z"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinejoin="round"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </span>
-                  Phone
-                </h4>
-                <p>{activeLocation.phone}</p>
-              </div>
-              <div>
-                <h4>
-                  <span className="contact-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" role="presentation">
-                      <path
-                        d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                      />
-                      <path
-                        d="M22 8l-10 7L2 8"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  Email
-                </h4>
-                <p>{activeLocation.email}</p>
-              </div>
+              <div><h4>{copy.address}</h4><p>{activeLocation.address}</p></div>
+              <div><h4>{copy.phone}</h4><p>{activeLocation.phone}</p></div>
+              <div><h4>{copy.email}</h4><p>{activeLocation.email}</p></div>
+              <div><h4>{copy.person}</h4><p>{activeLocation.contactPerson}</p></div>
+              <div><h4>{copy.extension}</h4><p>{activeLocation.extension}</p></div>
             </div>
           </div>
         </div>
@@ -219,12 +100,16 @@ const Contact = () => {
 
       <section className="section contact-cta">
         <div>
-          <h2>Need immediate assistance?</h2>
-          <p>Our experts are ready to help you find the right solution.</p>
+          <h2>{copy.ctaTitle}</h2>
+          <p>{copy.ctaCopy}</p>
         </div>
         <div className="contact-cta-actions">
-          <button className="btn btn-primary">Call Us Now</button>
-          <button className="btn btn-ghost">Email Us</button>
+          <a className="btn btn-primary contact-cta-link" href="tel:08047677121">
+            <span>{copy.call}</span>
+          </a>
+          <a className="btn btn-ghost contact-cta-link" href="mailto:sales@asiduoindia.com">
+            <span>{copy.mail}</span>
+          </a>
         </div>
       </section>
     </main>

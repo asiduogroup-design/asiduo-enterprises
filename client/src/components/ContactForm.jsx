@@ -1,7 +1,78 @@
 import React, { useState } from "react";
 import api from "../services/api.js";
+import { useLanguage } from "../context/LanguageContext.jsx";
+
+const formContent = {
+  "English (USA)": {
+    placeholders: {
+      name: "Full name",
+      company: "Company",
+      email: "Work email",
+      phone: "Phone",
+      interest: "Products/Services looking for",
+      subject: "Enter your enquiry details",
+      message: "Tell us about your requirements",
+    },
+    submit: "Send Enquiry",
+    error: "Unable to send enquiry right now.",
+  },
+  "English (India)": {
+    placeholders: {
+      name: "Full name",
+      company: "Company",
+      email: "Work email",
+      phone: "Phone",
+      interest: "Products/Services looking for",
+      subject: "Enter your enquiry details",
+      message: "Tell us about your requirements",
+    },
+    submit: "Send Enquiry",
+    error: "Unable to send enquiry right now.",
+  },
+  Italian: {
+    placeholders: {
+      name: "Nome completo",
+      company: "Azienda",
+      email: "Email di lavoro",
+      phone: "Telefono",
+      interest: "Prodotti/Servizi richiesti",
+      subject: "Inserisci i dettagli della richiesta",
+      message: "Parlaci delle tue esigenze",
+    },
+    submit: "Invia richiesta",
+    error: "Impossibile inviare la richiesta in questo momento.",
+  },
+  Spanish: {
+    placeholders: {
+      name: "Nombre completo",
+      company: "Empresa",
+      email: "Correo laboral",
+      phone: "Telefono",
+      interest: "Productos/Servicios buscados",
+      subject: "Ingrese los detalles de su consulta",
+      message: "Cuente sus requisitos",
+    },
+    submit: "Enviar consulta",
+    error: "No se puede enviar la consulta en este momento.",
+  },
+  German: {
+    placeholders: {
+      name: "Vollstandiger Name",
+      company: "Unternehmen",
+      email: "Geschaftliche E-Mail",
+      phone: "Telefon",
+      interest: "Gesuchte Produkte/Dienstleistungen",
+      subject: "Geben Sie Ihre Anfrage ein",
+      message: "Beschreiben Sie Ihre Anforderungen",
+    },
+    submit: "Anfrage senden",
+    error: "Anfrage kann derzeit nicht gesendet werden.",
+  },
+};
 
 const ContactForm = () => {
+  const { language } = useLanguage();
+  const copy = formContent[language] || formContent["English (USA)"];
   const [status, setStatus] = useState({ type: "", message: "" });
   const [form, setForm] = useState({
     name: "",
@@ -33,8 +104,7 @@ const ContactForm = () => {
         message: "",
       });
     } catch (err) {
-      const msg =
-        err.response?.data?.message || "Unable to send enquiry right now.";
+      const msg = err.response?.data?.message || copy.error;
       setStatus({ type: "error", message: msg });
     }
   };
@@ -44,14 +114,14 @@ const ContactForm = () => {
       <div className="grid">
         <input
           name="name"
-          placeholder="Full name"
+          placeholder={copy.placeholders.name}
           value={form.name}
           onChange={handleChange}
           required
         />
         <input
           name="company"
-          placeholder="Company"
+          placeholder={copy.placeholders.company}
           value={form.company}
           onChange={handleChange}
           required
@@ -59,14 +129,14 @@ const ContactForm = () => {
         <input
           name="email"
           type="email"
-          placeholder="Work email"
+          placeholder={copy.placeholders.email}
           value={form.email}
           onChange={handleChange}
           required
         />
         <input
           name="phone"
-          placeholder="Phone"
+          placeholder={copy.placeholders.phone}
           value={form.phone}
           onChange={handleChange}
           required
@@ -74,21 +144,21 @@ const ContactForm = () => {
       </div>
       <input
         name="interest"
-        placeholder="Products/Services looking for"
+        placeholder={copy.placeholders.interest}
         value={form.interest}
         onChange={handleChange}
         required
       />
       <input
         name="subject"
-        placeholder="Enter your enquiry details"
+        placeholder={copy.placeholders.subject}
         value={form.subject}
         onChange={handleChange}
         required
       />
       <textarea
         name="message"
-        placeholder="Tell us about your requirements"
+        placeholder={copy.placeholders.message}
         rows="5"
         value={form.message}
         onChange={handleChange}
@@ -97,7 +167,7 @@ const ContactForm = () => {
         <p className={`status ${status.type}`}>{status.message}</p>
       )}
       <button className="btn btn-primary" type="submit">
-        Send Enquiry
+        {copy.submit}
       </button>
     </form>
   );

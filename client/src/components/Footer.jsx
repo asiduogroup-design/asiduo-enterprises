@@ -1,18 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   return (
     <footer className="footer-dark">
       <div className="footer-grid">
         <div className="footer-col">
-          <h4>About Us</h4>
-          <p>
-            Your trusted partner in precision since 1983. As leading
-            manufacturers, importers, and distributors of metrology
-            instruments, we are committed to delivering accuracy, innovation,
-            and reliability for every industrial application.
-          </p>
+          <h4>{t.footer.aboutUs}</h4>
+          <p>{t.footer.aboutCopy}</p>
           <div className="footer-socials">
             <span className="social-dot" aria-hidden="true">
               <svg viewBox="0 0 24 24">
@@ -34,28 +32,28 @@ const Footer = () => {
         </div>
 
         <div className="footer-col">
-          <h4>Quick Links</h4>
+          <h4>{t.footer.quickLinks}</h4>
           <div className="footer-links">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/about">About Us</NavLink>
-            <NavLink to="/products">Products</NavLink>
-            <NavLink to="/services">Services</NavLink>
-            <NavLink to="/clients">Clients</NavLink>
-            <NavLink to="/careers">Careers</NavLink>
-            <NavLink to="/contact">Contact Us</NavLink>
+            <NavLink to="/">{t.nav.home}</NavLink>
+            <NavLink to="/about">{t.footer.aboutUs}</NavLink>
+            <NavLink to="/products">{t.footer.products}</NavLink>
+            <NavLink to="/services">{t.footer.services}</NavLink>
+            <NavLink to="/clients">{t.footer.clients}</NavLink>
+            <NavLink to="/careers">{t.footer.careers}</NavLink>
+            <NavLink to="/contact">{t.footer.contactUs}</NavLink>
           </div>
         </div>
 
         <div className="footer-col">
-          <h4>QR Code</h4>
+          <h4>{t.footer.qrCode}</h4>
           <div className="qr-box">
             <div className="qr-placeholder">QR</div>
           </div>
-          <p className="qr-text">Scan to visit our website</p>
+          <p className="qr-text">{t.footer.scanWebsite}</p>
         </div>
 
         <div className="footer-col">
-          <h4>Contact Us</h4>
+          <h4>{t.footer.contactTitle}</h4>
           <div className="footer-contact">
             <strong>ASIDUO ENTERPRISES</strong>
             <span className="muted">(A GROUP COMPANY)</span>
@@ -65,15 +63,15 @@ const Footer = () => {
                 <circle cx="12" cy="10" r="2.5" />
               </svg>
               <p>
-                D-105, 1st Main Road, D Block, Anna Nagar East, Chennai - 600102,
-                Tamil Nadu, India
+                Ganga Shopping Complex, Sec 16 B, Vasundhara, Ghaziabad,
+                Ghaziabad-201012, Uttar Pradesh, India
               </p>
             </div>
             <div className="contact-row">
               <svg className="footer-icon" viewBox="0 0 24 24">
                 <path d="M4 6c3 6 8 11 14 14l2-2c-1.5-1-3-1.2-4.5-.5-1.7-1-3.3-2.6-4.3-4.3.7-1.5.5-3-0.5-4.5L4 6Z" />
               </svg>
-              <p>+91 944 500 8731 / +91 944 528 2765</p>
+              <p>08047677121 (Ext: 5505)</p>
             </div>
             <div className="contact-row">
               <svg className="footer-icon" viewBox="0 0 24 24">
@@ -82,14 +80,21 @@ const Footer = () => {
               </svg>
               <p>sales@asiduoindia.com</p>
             </div>
-            <button className="btn btn-primary footer-cta">Contact Now</button>
+            <div className="contact-row">
+              <svg className="footer-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="3" />
+                <path d="M6 19a6 6 0 0 1 12 0" />
+              </svg>
+              <p>SUSHIL KUMAR SINGH</p>
+            </div>
+            <button className="btn btn-primary footer-cta">
+              {t.footer.contactNow}
+            </button>
           </div>
         </div>
       </div>
 
-      <div className="footer-bottom">
-        © 2026 Asiduo Enterprises. All rights reserved.
-      </div>
+      <div className="footer-bottom">{t.footer.rights}</div>
     </footer>
   );
 };
