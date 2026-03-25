@@ -138,8 +138,12 @@ const Hero = () => {
           <button className="btn btn-ghost">{copy.secondary}</button>
         </div>
         <div className="hero-stats">
-          {copy.stats.map((stat) => (
-            <div className="stat" key={stat.label}>
+          {copy.stats.map((stat, index) => (
+            <div
+              className="stat"
+              key={stat.label}
+              style={{ "--stat-index": index }}
+            >
               <span>{stat.value}</span>
               <strong>{stat.label}</strong>
             </div>
@@ -148,6 +152,13 @@ const Hero = () => {
       </div>
       <div className="hero-panel">
         <div className="panel-card">
+          <div className="panel-sparkles" aria-hidden="true">
+            <span className="panel-sparkle" />
+            <span className="panel-sparkle" />
+            <span className="panel-sparkle" />
+            <span className="panel-sparkle" />
+            <span className="panel-sparkle" />
+          </div>
           <h3>{copy.panelTitle}</h3>
           <ul>
             {copy.panelItems.map((item) => (

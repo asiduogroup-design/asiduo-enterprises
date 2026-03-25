@@ -15,6 +15,9 @@ const content = {
       ["Consultative Support", "We analyze your measurement workflow and recommend the right instrumentation mix."],
       ["Traceable Results", "Every certificate references national and international standards for audit readiness."],
       ["Fast Turnaround", "Structured intake and dispatch systems reduce downtime for your production lines."],
+      ["Audit-Ready Documentation", "Clear certificates, labels, and service records keep compliance reviews organized."],
+      ["Onsite Coordination", "We plan pickups, onsite visits, and return schedules around your production priorities."],
+      ["Expert Guidance", "Our engineers help teams interpret tolerances, uncertainty, and calibration intervals with confidence."],
     ],
     servicesEyebrow: "Services",
     servicesTitle: "Comprehensive metrology solutions",
@@ -25,6 +28,8 @@ const content = {
       ["Metrology Equipment Supply", "Precision gauges, CMM accessories, surface plates, and measurement fixtures."],
       ["Installation & Commissioning", "On-site setup, validation, and uncertainty studies for new measurement systems."],
       ["Training & Support", "Operator training, SOP creation, and audit-ready documentation support."],
+      ["Uncertainty Studies", "Measurement uncertainty evaluation and process capability reviews for critical instruments."],
+      ["Preventive Maintenance", "Scheduled upkeep, performance checks, and service planning to extend instrument life."],
     ],
     productsEyebrow: "Products",
     productsTitle: "Precision instruments and accessories",
@@ -54,6 +59,9 @@ const content = {
       ["Supporto consulenziale", "Analizziamo il flusso di misura e consigliamo la giusta combinazione di strumenti."],
       ["Risultati tracciabili", "Ogni certificato fa riferimento a standard nazionali e internazionali."],
       ["Tempi rapidi", "Processi strutturati riducono i tempi di fermo delle linee produttive."],
+      ["Documentazione pronta per audit", "Certificati, etichette e registri di servizio mantengono ordinate le verifiche di conformita."],
+      ["Coordinamento in sede", "Pianifichiamo ritiri, visite in sede e riconsegne in base alle priorita produttive."],
+      ["Guida tecnica esperta", "I nostri tecnici aiutano il team a interpretare tolleranze, incertezza e intervalli di taratura."],
     ],
     servicesEyebrow: "Servizi",
     servicesTitle: "Soluzioni metrologiche complete",
@@ -64,6 +72,8 @@ const content = {
       ["Fornitura di strumenti metrologici", "Calibri di precisione, accessori CMM, piani di riscontro e attrezzature di misura."],
       ["Installazione e messa in servizio", "Configurazione in sede, validazione e studi di incertezza per nuovi sistemi."],
       ["Formazione e supporto", "Formazione operatori, SOP e supporto documentale per audit."],
+      ["Studi di incertezza", "Valutazioni dell'incertezza di misura e revisioni di capacita per strumenti critici."],
+      ["Manutenzione preventiva", "Controlli programmati, verifiche prestazionali e piani di assistenza per prolungare la vita utile."],
     ],
     productsEyebrow: "Prodotti",
     productsTitle: "Strumenti e accessori di precisione",
@@ -92,6 +102,9 @@ const content = {
       ["Soporte consultivo", "Analizamos su flujo de medicion y recomendamos la combinacion correcta de instrumentos."],
       ["Resultados trazables", "Cada certificado hace referencia a normas nacionales e internacionales."],
       ["Respuesta rapida", "Procesos estructurados reducen el tiempo de inactividad en produccion."],
+      ["Documentacion lista para auditoria", "Certificados, etiquetas y registros de servicio mantienen ordenadas sus revisiones de cumplimiento."],
+      ["Coordinacion en sitio", "Planificamos recolecciones, visitas tecnicas y entregas segun sus prioridades de produccion."],
+      ["Asesoria experta", "Nuestros ingenieros ayudan a interpretar tolerancias, incertidumbre e intervalos de calibracion."],
     ],
     servicesEyebrow: "Servicios",
     servicesTitle: "Soluciones integrales de metrologia",
@@ -102,6 +115,8 @@ const content = {
       ["Suministro de equipos de metrologia", "Calibres de precision, accesorios CMM, placas de superficie y fijaciones."],
       ["Instalacion y puesta en marcha", "Configuracion en sitio, validacion y estudios de incertidumbre."],
       ["Capacitacion y soporte", "Formacion de operadores, SOP y apoyo documental listo para auditoria."],
+      ["Estudios de incertidumbre", "Evaluacion de incertidumbre de medicion y revision de capacidad para instrumentos criticos."],
+      ["Mantenimiento preventivo", "Revisiones programadas, controles de rendimiento y planes de servicio para alargar la vida util."],
     ],
     productsEyebrow: "Productos",
     productsTitle: "Instrumentos y accesorios de precision",
@@ -130,6 +145,9 @@ const content = {
       ["Beratende Unterstutzung", "Wir analysieren Ihren Messablauf und empfehlen die passende Instrumentierung."],
       ["Ruckverfolgbare Ergebnisse", "Jedes Zertifikat verweist auf nationale und internationale Standards."],
       ["Schnelle Bearbeitung", "Strukturierte Ablaufe reduzieren Stillstandszeiten in Ihrer Produktion."],
+      ["Auditbereite Dokumentation", "Zertifikate, Kennzeichnungen und Serviceprotokolle halten Ihre Konformitatsprufungen ubersichtlich."],
+      ["Vor-Ort-Koordination", "Wir planen Abholung, Vor-Ort-Termine und Rucklieferung nach Ihren Produktionsprioritaten."],
+      ["Technische Fachberatung", "Unsere Ingenieure helfen bei Toleranzen, Unsicherheit und passenden Kalibrierintervallen."],
     ],
     servicesEyebrow: "Dienstleistungen",
     servicesTitle: "Umfassende metrologische Losungen",
@@ -140,6 +158,8 @@ const content = {
       ["Lieferung von Metrologiegeraten", "Prazisionslehren, CMM-Zubehor, Messplatten und Vorrichtungen."],
       ["Installation und Inbetriebnahme", "Vor-Ort-Einrichtung, Validierung und Unsicherheitsstudien fur neue Systeme."],
       ["Schulung und Support", "Bedienerschulung, SOP-Erstellung und auditfahige Dokumentation."],
+      ["Unsicherheitsstudien", "Bewertung der Messunsicherheit und Fahigkeitsprufungen fur kritische Messmittel."],
+      ["Praventive Wartung", "Geplante Wartung, Leistungsprufungen und Serviceplane fur eine langere Geratelebensdauer."],
     ],
     productsEyebrow: "Produkte",
     productsTitle: "Prazisionsinstrumente und Zubehor",
@@ -165,24 +185,36 @@ content["English (India)"] = content["English (USA)"];
 const Home = () => {
   const { language } = useLanguage();
   const copy = content[language] || content["English (USA)"];
+  const aboutTrackCopies = [0, 1];
+  const serviceTrackCopies = [0, 1];
 
   return (
     <main>
       <Hero />
 
       <section className="section about">
-        <div>
+        <div className="section-heading">
           <p className="eyebrow">{copy.aboutEyebrow}</p>
           <h2>{copy.aboutTitle}</h2>
           <p>{copy.aboutCopy}</p>
         </div>
-        <div className="about-grid">
-          {copy.aboutCards.map(([title, desc]) => (
-            <div className="about-card" key={title}>
-              <h3>{title}</h3>
-              <p>{desc}</p>
-            </div>
-          ))}
+        <div className="about-carousel">
+          <div className="about-track">
+            {aboutTrackCopies.map((trackCopy) => (
+              <div
+                className="about-track-group"
+                key={trackCopy}
+                aria-hidden={trackCopy === 1}
+              >
+                {copy.aboutCards.map(([title, desc], cardIndex) => (
+                  <div className="about-card" key={`${trackCopy}-${cardIndex}-${title}`}>
+                    <h3>{title}</h3>
+                    <p>{desc}</p>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -192,10 +224,24 @@ const Home = () => {
           <h2>{copy.servicesTitle}</h2>
           <p>{copy.servicesCopy}</p>
         </div>
-        <div className="card-grid">
-          {copy.services.map(([title, desc]) => (
-            <ServiceCard key={title} title={title} desc={desc} />
-          ))}
+        <div className="services-carousel">
+          <div className="services-track">
+            {serviceTrackCopies.map((trackCopy) => (
+              <div
+                className="services-track-group"
+                key={trackCopy}
+                aria-hidden={trackCopy === 1}
+              >
+                {copy.services.map(([title, desc], cardIndex) => (
+                  <ServiceCard
+                    key={`${trackCopy}-${cardIndex}-${title}`}
+                    title={title}
+                    desc={desc}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
