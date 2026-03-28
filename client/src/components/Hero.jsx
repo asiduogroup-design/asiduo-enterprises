@@ -158,6 +158,10 @@ const Hero = () => {
             <span className="panel-sparkle" />
             <span className="panel-sparkle" />
             <span className="panel-sparkle" />
+            <span className="panel-sparkle" />
+            <span className="panel-sparkle" />
+            <span className="panel-sparkle" />
+            <span className="panel-sparkle" />
           </div>
           <h3>{copy.panelTitle}</h3>
           <ul>

@@ -16,6 +16,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [hasScrolled, setHasScrolled] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(
     Boolean(localStorage.getItem("admin_token"))
   );
@@ -47,6 +48,19 @@ const Navbar = () => {
       searchInputRef.current?.focus();
     }
   }, [searchOpen]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 80);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleToggle = () => setOpen((prev) => !prev);
 
@@ -97,7 +111,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="nav">
+    <header className={`nav${hasScrolled ? " nav-scrolled" : ""}`}>
       <div className="logo">Asiduo Enterprises</div>
       <nav className="nav-links">
         <NavLink

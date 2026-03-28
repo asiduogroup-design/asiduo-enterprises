@@ -11,18 +11,21 @@ const fallbackProducts = [
     name: "Digital Height Gauge",
     description: "High-accuracy gauges with SPC-ready output and granite base.",
     category: "Dimensional",
+    image: "",
   },
   {
     _id: "2",
     name: "Surface Roughness Tester",
     description: "Portable, shop-floor roughness measurement with profile export.",
     category: "Surface",
+    image: "",
   },
   {
     _id: "3",
     name: "Torque Wrench Calibrator",
     description: "Bench-top calibration system with traceable load cells.",
     category: "Torque",
+    image: "",
   },
 ];
 
@@ -124,6 +127,7 @@ const Products = () => {
                 name={product.name}
                 description={product.description}
                 category={product.category || "General"}
+                image={product.image}
               />
             ))}
           </div>

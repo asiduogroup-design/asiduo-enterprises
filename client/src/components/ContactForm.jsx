@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import api from "../services/api.js";
 import { useLanguage } from "../context/LanguageContext.jsx";
 
@@ -73,6 +74,7 @@ const formContent = {
 const ContactForm = () => {
   const { language } = useLanguage();
   const copy = formContent[language] || formContent["English (USA)"];
+  const [searchParams] = useSearchParams();
   const [status, setStatus] = useState({ type: "", message: "" });
   const [form, setForm] = useState({
     name: "",
@@ -83,6 +85,23 @@ const ContactForm = () => {
     subject: "",
     message: "",
   });
+
+  useEffect(() => {
+    const interest = searchParams.get("interest") || "";
+    const subject = searchParams.get("subject") || "";
+    const message = searchParams.get("message") || "";
+
+    if (!interest && !subject && !message) {
+      return;
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      interest: interest || prev.interest,
+      subject: subject || prev.subject,
+      message: message || prev.message,
+    }));
+  }, [searchParams]);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
