@@ -37,7 +37,8 @@ const translations = {
       scanWebsite: "Scan to visit our website",
       contactTitle: "Contact Us",
       contactNow: "Contact Now",
-      rights: "© 2026 Asiduo Enterprises. All rights reserved.",
+      rights:
+        "© 2026 Asiduo Enterprises. All rights reserved. Website by Asiduo Solutions",
     },
   },
   "English (India)": {
@@ -76,7 +77,8 @@ const translations = {
       scanWebsite: "Scan to visit our website",
       contactTitle: "Contact Us",
       contactNow: "Contact Now",
-      rights: "© 2026 Asiduo Enterprises. All rights reserved.",
+      rights:
+        "© 2026 Asiduo Enterprises. All rights reserved. Website by Asiduo Solutions",
     },
   },
   Italian: {
@@ -115,7 +117,8 @@ const translations = {
       scanWebsite: "Scansiona per visitare il sito web",
       contactTitle: "Contattaci",
       contactNow: "Contatta Ora",
-      rights: "© 2026 Asiduo Enterprises. Tutti i diritti riservati.",
+      rights:
+        "© 2026 Asiduo Enterprises. Tutti i diritti riservati. Website by Asiduo Solutions",
     },
   },
   Spanish: {
@@ -154,7 +157,8 @@ const translations = {
       scanWebsite: "Escanee para visitar nuestro sitio web",
       contactTitle: "Contactanos",
       contactNow: "Contactar Ahora",
-      rights: "© 2026 Asiduo Enterprises. Todos los derechos reservados.",
+      rights:
+        "© 2026 Asiduo Enterprises. Todos los derechos reservados. Website by Asiduo Solutions",
     },
   },
   German: {
@@ -193,7 +197,8 @@ const translations = {
       scanWebsite: "Scannen Sie, um unsere Website zu besuchen",
       contactTitle: "Kontakt",
       contactNow: "Jetzt Kontaktieren",
-      rights: "© 2026 Asiduo Enterprises. Alle Rechte vorbehalten.",
+      rights:
+        "© 2026 Asiduo Enterprises. Alle Rechte vorbehalten. Website by Asiduo Solutions",
     },
   },
 };
