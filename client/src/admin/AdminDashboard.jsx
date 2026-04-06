@@ -2,30 +2,33 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api, { setAuthToken } from "../services/api.js";
 
-const emptyProduct = {
-  name: "",
-  description: "",
-  category: "",
-  image: "",
+const TAGS = ["Electrical", "Fire Safety", "Civil", "HVAC/AC", "Petroleum"];
+
+const emptyProject = {
+  title: "",
+  client: "",
+  location: "",
+  value: "",
+  tags: [],
 };
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
   const [enquiries, setEnquiries] = useState([]);
-  const [productForm, setProductForm] = useState(emptyProduct);
-  const [status, setStatus] = useState({ type: "", message: "" });
+  const [projectsList, setProjectsList] = useState([]);
+  const [projectForm, setProjectForm] = useState(emptyProject);
+  const [projectStatus, setProjectStatus] = useState({ type: "", message: "" });
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [editingId, setEditingId] = useState(null);
+  const [editingProjectId, setEditingProjectId] = useState(null);
 
   const loadData = async () => {
     try {
-      const [prodRes, enqRes] = await Promise.all([
-        api.get("/api/products"),
+      const [enqRes, projRes] = await Promise.all([
         api.get("/api/enquiries"),
+        api.get("/api/projects"),
       ]);
-      setProducts(prodRes.data || []);
       setEnquiries(enqRes.data || []);
+      setProjectsList(projRes.data || []);
     } catch (err) {
       if (err.response?.status === 401) {
         navigate("/admin");
@@ -43,70 +46,72 @@ const AdminDashboard = () => {
     loadData();
   }, [navigate]);
 
-  const handleChange = (e) => {
-    setProductForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  // ── Project handlers ──────────────────────────────────────────
+  const handleProjectChange = (e) => {
+    setProjectForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleImage = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      setProductForm((prev) => ({ ...prev, image: reader.result }));
-    };
-    reader.readAsDataURL(file);
+  const handleTagToggle = (tag) => {
+    setProjectForm((prev) => ({
+      ...prev,
+      tags: prev.tags.includes(tag)
+        ? prev.tags.filter((t) => t !== tag)
+        : [...prev.tags, tag],
+    }));
   };
 
-  const saveProduct = async (e) => {
+  const saveProject = async (e) => {
     e.preventDefault();
-    setStatus({ type: "", message: "" });
+    setProjectStatus({ type: "", message: "" });
     try {
-      if (editingId) {
-        await api.put(`/api/products/${editingId}`, productForm);
-        setStatus({ type: "success", message: "Product updated." });
+      if (editingProjectId) {
+        await api.put(`/api/projects/${editingProjectId}`, projectForm);
+        setProjectStatus({ type: "success", message: "Project updated." });
       } else {
-        await api.post("/api/products", productForm);
-        setStatus({ type: "success", message: "Product added." });
+        await api.post("/api/projects", projectForm);
+        setProjectStatus({ type: "success", message: "Project added." });
       }
-      setProductForm(emptyProduct);
-      setEditingId(null);
+      setProjectForm(emptyProject);
+      setEditingProjectId(null);
       loadData();
     } catch (err) {
-      setStatus({
+      setProjectStatus({
         type: "error",
-        message: err.response?.data?.message || "Unable to save product.",
+        message: err.response?.data?.message || "Unable to save project.",
       });
     }
   };
 
-  const deleteProduct = async (id) => {
+  const deleteProject = async (id) => {
     try {
-      await api.delete(`/api/products/${id}`);
+      await api.delete(`/api/projects/${id}`);
       loadData();
     } catch (err) {
-      setStatus({
+      setProjectStatus({
         type: "error",
-        message: err.response?.data?.message || "Unable to delete product.",
+        message: err.response?.data?.message || "Unable to delete project.",
       });
     }
   };
 
-  const startEdit = (item) => {
-    setEditingId(item._id);
-    setProductForm({
-      name: item.name || "",
-      description: item.description || "",
-      category: item.category || "",
-      image: item.image || "",
+  const startEditProject = (item) => {
+    setEditingProjectId(item._id);
+    setProjectForm({
+      title: item.title || "",
+      client: item.client || "",
+      location: item.location || "",
+      value: item.value || "",
+      tags: item.tags || [],
     });
-    setActiveTab("products");
+    setActiveTab("projects");
   };
 
-  const cancelEdit = () => {
-    setEditingId(null);
-    setProductForm(emptyProduct);
+  const cancelEditProject = () => {
+    setEditingProjectId(null);
+    setProjectForm(emptyProject);
   };
 
+  // ── Common ────────────────────────────────────────────────────
   const logout = () => {
     localStorage.removeItem("admin_token");
     setAuthToken(null);
@@ -116,10 +121,10 @@ const AdminDashboard = () => {
 
   const stats = useMemo(
     () => [
-      { label: "Total Products", value: products.length },
+      { label: "Total Projects", value: projectsList.length },
       { label: "Total Enquiries", value: enquiries.length },
     ],
-    [products, enquiries]
+    [projectsList, enquiries]
   );
 
   return (
@@ -137,10 +142,10 @@ const AdminDashboard = () => {
             Dashboard
           </button>
           <button
-            className={activeTab === "products" ? "active" : ""}
-            onClick={() => setActiveTab("products")}
+            className={activeTab === "projects" ? "active" : ""}
+            onClick={() => setActiveTab("projects")}
           >
-            Products
+            Projects
           </button>
           <button
             className={activeTab === "enquiries" ? "active" : ""}
@@ -160,19 +165,19 @@ const AdminDashboard = () => {
             <p className="eyebrow">Admin Panel</p>
             <h1>
               {activeTab === "dashboard" && "Dashboard"}
-              {activeTab === "products" && "Manage Products"}
+              {activeTab === "projects" && "Manage Projects"}
               {activeTab === "enquiries" && "Enquiries"}
             </h1>
           </div>
           <div className="admin-quick">
             <button
-              className="btn btn-ghost"
-              onClick={() => setActiveTab("products")}
+              className="btn btn-primary"
+              onClick={() => setActiveTab("projects")}
             >
-              Add Product
+              Manage Projects
             </button>
             <button
-              className="btn btn-primary"
+              className="btn btn-ghost"
               onClick={() => setActiveTab("enquiries")}
             >
               View Enquiries
@@ -197,9 +202,9 @@ const AdminDashboard = () => {
                 <div className="admin-actions">
                   <button
                     className="btn btn-primary"
-                    onClick={() => setActiveTab("products")}
+                    onClick={() => setActiveTab("projects")}
                   >
-                    Add a product
+                    Add a project
                   </button>
                   <button
                     className="btn btn-ghost"
@@ -228,56 +233,67 @@ const AdminDashboard = () => {
           </div>
         )}
 
-        {activeTab === "products" && (
+        {activeTab === "projects" && (
           <div className="admin-products">
             <div className="admin-card">
-              <h2>{editingId ? "Edit Product" : "Add Product"}</h2>
-              <form className="admin-form" onSubmit={saveProduct}>
-                <input
-                  name="name"
-                  placeholder="Product name"
-                  value={productForm.name}
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  name="category"
-                  placeholder="Category"
-                  value={productForm.category}
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  name="image"
-                  placeholder="Image URL (optional)"
-                  value={productForm.image}
-                  onChange={handleChange}
-                />
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImage}
-                />
+              <h2>{editingProjectId ? "Edit Project" : "Add Project"}</h2>
+              <form className="admin-form" onSubmit={saveProject}>
                 <textarea
-                  name="description"
-                  placeholder="Description"
-                  rows="4"
-                  value={productForm.description}
-                  onChange={handleChange}
+                  name="title"
+                  placeholder="Project title (e.g. SITC of Electrical Works at South Block)"
+                  rows="3"
+                  value={projectForm.title}
+                  onChange={handleProjectChange}
                   required
                 />
-                {status.message && (
-                  <p className={`status ${status.type}`}>{status.message}</p>
+                <input
+                  name="client"
+                  placeholder="Client / Organisation (e.g. CPWD, DED-11)"
+                  value={projectForm.client}
+                  onChange={handleProjectChange}
+                  required
+                />
+                <input
+                  name="location"
+                  placeholder="Location (e.g. New Delhi)"
+                  value={projectForm.location}
+                  onChange={handleProjectChange}
+                  required
+                />
+                <input
+                  name="value"
+                  placeholder="Contract value (e.g. ₹12L)"
+                  value={projectForm.value}
+                  onChange={handleProjectChange}
+                  required
+                />
+                <div className="admin-tag-group">
+                  <label className="admin-tag-label">Discipline Tags</label>
+                  <div className="admin-tags">
+                    {TAGS.map((tag) => (
+                      <button
+                        key={tag}
+                        type="button"
+                        className={`admin-tag-btn${projectForm.tags.includes(tag) ? " selected" : ""}`}
+                        onClick={() => handleTagToggle(tag)}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                {projectStatus.message && (
+                  <p className={`status ${projectStatus.type}`}>{projectStatus.message}</p>
                 )}
                 <div className="admin-form-actions">
                   <button className="btn btn-primary" type="submit">
-                    {editingId ? "Update Product" : "Save Product"}
+                    {editingProjectId ? "Update Project" : "Save Project"}
                   </button>
-                  {editingId && (
+                  {editingProjectId && (
                     <button
                       className="btn btn-ghost"
                       type="button"
-                      onClick={cancelEdit}
+                      onClick={cancelEditProject}
                     >
                       Cancel
                     </button>
@@ -287,35 +303,45 @@ const AdminDashboard = () => {
             </div>
 
             <div className="admin-card">
-              <h2>Products</h2>
+              <h2>Projects ({projectsList.length})</h2>
               <div className="admin-table">
                 <div className="admin-table-row admin-table-head">
-                  <span>Name</span>
-                  <span>Category</span>
+                  <span>Title</span>
+                  <span>Client</span>
+                  <span>Value</span>
+                  <span>Tags</span>
                   <span>Actions</span>
                 </div>
-                {products.map((item) => (
-                  <div key={item._id} className="admin-table-row">
-                    <span>{item.name}</span>
-                    <span>{item.category}</span>
+                {projectsList.map((item) => (
+                  <div key={item._id} className="admin-table-row admin-table-row--project">
+                    <span className="admin-table-title">{item.title}</span>
+                    <span>{item.client}</span>
+                    <span className="admin-project-value">{item.value}</span>
+                    <div className="admin-project-tags">
+                      {(item.tags || []).map((tag) => (
+                        <span key={tag} className="admin-project-tag">{tag}</span>
+                      ))}
+                    </div>
                     <div className="admin-table-actions">
                       <button
                         className="btn btn-ghost"
-                        onClick={() => startEdit(item)}
+                        onClick={() => startEditProject(item)}
                       >
                         Edit
                       </button>
                       <button
                         className="btn btn-ghost"
-                        onClick={() => deleteProduct(item._id)}
+                        onClick={() => deleteProject(item._id)}
                       >
                         Delete
                       </button>
                     </div>
                   </div>
                 ))}
-                {!products.length && (
-                  <div className="admin-table-row empty">No products yet.</div>
+                {!projectsList.length && (
+                  <div className="admin-table-row empty">
+                    No projects yet. Add one using the form above.
+                  </div>
                 )}
               </div>
             </div>

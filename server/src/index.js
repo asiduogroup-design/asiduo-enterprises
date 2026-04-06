@@ -7,6 +7,7 @@ import contactRouter from "./routes/contact.js";
 import authRouter from "./routes/auth.js";
 import productsRouter from "./routes/products.js";
 import enquiriesRouter from "./routes/enquiries.js";
+import projectsRouter from "./routes/projects.js";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use("/api/contact", contactRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/enquiries", enquiriesRouter);
+app.use("/api/projects", projectsRouter);
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;

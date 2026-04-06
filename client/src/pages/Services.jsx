@@ -1,175 +1,159 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import ServiceCard from "../components/ServiceCard.jsx";
+import { NavLink, useParams } from "react-router-dom";
 import AnimatedHeadline from "../components/AnimatedHeadline.jsx";
 import { useLanguage } from "../context/LanguageContext.jsx";
 
-const pageContent = {
+const copyByLanguage = {
   "English (USA)": {
-    eyebrow: "Metrology & Calibration",
-    title: "Services designed for compliance and speed",
-    intro:
-      "We help you maintain measurement integrity across the full calibration lifecycle from instrumentation planning to final audit documentation.",
+    eyebrow: "What We Deliver",
+    title: "Four Disciplines, One Accountable Partner",
+    intro: "Specialised execution across critical infrastructure projects.",
     services: [
-      ["Dimensional Calibration", "Micrometers, calipers, gauges, and precision tools calibrated to national standards."],
-      ["Force & Torque", "Traceable calibration for torque wrenches, load cells, and force gauges."],
-      ["Pressure & Vacuum", "Pressure gauges, transducers, and vacuum sensors with uncertainty budgets."],
-      ["Surface & Profile", "Roughness, surface plates, and form measurement systems."],
-      ["On-site Services", "Plant-side calibration and validation to minimize downtime."],
-      ["Training & Documentation", "SOPs, uncertainty studies, and audit-ready reporting assistance."],
+      {
+        title: "Electrical",
+        description: "Power distribution, lighting systems, emergency backups, and switchgear installation for government, defence, and enterprise facilities. CPWD and DMRC compliant execution.",
+      },
+      {
+        title: "Fire Safety Systems",
+        description: "Fire detection, suppression, and evacuation systems designed to BIS/IS and NFPA standards. Commissioning and statutory compliance for high-occupancy and critical infrastructure sites.",
+      },
+      {
+        title: "Civil Works",
+        description: "Structural finishes, MEP rough-ins, foundation work, and site-specific modifications. Execution aligned to architectural specs and permit requirements across India.",
+      },
+      {
+        title: "CCTV & Surveillance",
+        description: "Integrated video surveillance, access control, and monitoring systems for perimeter and facility-wide security. Installation and integration on government and defence sites.",
+      },
     ],
-    onsiteTitle: "Need On-Site Calibration?",
-    onsiteCopy:
-      "Our mobile calibration units can come to your facility for on-site calibrations.",
-    onsiteButton: "Contact Us",
-    whyTitle: "Why Choose Asiduo Calibration?",
-    why: [
-      ["NABL Accredited", "Our calibration centers are aligned to ISO/IEC 17025 standards, ensuring trusted results."],
-      ["Responsive Support", "With support coordinated from our Ghaziabad office, we provide dependable response for industrial customers."],
-      ["Mobile Calibration", "Our mobile calibration service brings expert support directly to your doorstep."],
-    ],
+    ctaTitle: "Ready to work with us?",
+    ctaCopy: "Contact our team to discuss your project scope, timeline, and compliance requirements.",
+    ctaButton: "Schedule a Consultation",
   },
   "English (India)": null,
   Italian: {
-    eyebrow: "Metrologia e Taratura",
-    title: "Servizi pensati per conformita e rapidita",
-    intro:
-      "Ti aiutiamo a mantenere l'integrita della misura lungo l'intero ciclo di taratura, dalla pianificazione alla documentazione finale.",
+    eyebrow: "Cosa Consegniamo",
+    title: "Quattro Discipline, Un Partner Affidabile",
+    intro: "Esecuzione specializzata su progetti infrastrutturali critici.",
     services: [
-      ["Taratura dimensionale", "Micrometri, calibri e strumenti di precisione tarati secondo standard nazionali."],
-      ["Forza e coppia", "Taratura tracciabile per chiavi dinamometriche, celle di carico e dinamometri."],
-      ["Pressione e vuoto", "Manometri, trasduttori e sensori di vuoto con budget di incertezza."],
-      ["Superficie e profilo", "Rugosita, piani di riscontro e sistemi di misura di forma."],
-      ["Servizi in sede", "Taratura e validazione direttamente in impianto per ridurre i fermi."],
-      ["Formazione e documentazione", "SOP, studi di incertezza e assistenza per report pronti agli audit."],
+      {
+        title: "Impianti Elettrici",
+        description: "Distribuzione elettrica, sistemi di illuminazione, backup di emergenza e installazioni di switchgear per strutture governative, difensive e aziendali. Esecuzione conforme CPWD e DMRC.",
+      },
+      {
+        title: "Sistemi Antincendio",
+        description: "Tubi di rilevazione, sistemi di soppressione ed evacuazione progettati secondo BIS/IS e NFPA. Messa in servizio e conformita normativa per siti ad alta occupazione e infrastrutture critiche.",
+      },
+      {
+        title: "Lavori Civili",
+        description: "Finiture strutturali, rough-ins MEP, lavori di fondazione e modifiche specifiche del sito. Esecuzione allineata alle specifiche architettoniche e ai requisiti sui permessi.",
+      },
+      {
+        title: "CCTV e Sorveglianza",
+        description: "Sistemi integrati di videosorveglianza, controllo accessi e monitoraggio per la sicurezza perimetrale e dell'intera struttura. Installazione e integrazione in siti governativi e difensive.",
+      },
     ],
-    onsiteTitle: "Hai bisogno di una taratura in sede?",
-    onsiteCopy: "Le nostre unita mobili possono raggiungere la tua struttura per interventi in sede.",
-    onsiteButton: "Contattaci",
-    whyTitle: "Perche scegliere Asiduo Calibration?",
-    why: [
-      ["Accreditamento NABL", "I nostri centri sono allineati agli standard ISO/IEC 17025."],
-      ["Supporto rapido", "Coordinato dal nostro ufficio di Ghaziabad per clienti industriali."],
-      ["Taratura mobile", "Portiamo il supporto tecnico direttamente presso la tua sede."],
-    ],
+    ctaTitle: "Pronto a lavorare con noi?",
+    ctaCopy: "Contatta il nostro team per discutere l'ambito del tuo progetto, la tempistica e i requisiti di conformita.",
+    ctaButton: "Pianifica una Consulenza",
   },
   Spanish: {
-    eyebrow: "Metrologia y Calibracion",
-    title: "Servicios disenados para cumplimiento y rapidez",
-    intro:
-      "Le ayudamos a mantener la integridad de medicion durante todo el ciclo de calibracion, desde la planificacion hasta la documentacion final.",
+    eyebrow: "Que Entregamos",
+    title: "Cuatro Disciplinas, Un Socio Responsable",
+    intro: "Ejecucion especializada en proyectos de infraestructura critica.",
     services: [
-      ["Calibracion dimensional", "Micrometros, calibradores y herramientas de precision calibradas segun normas nacionales."],
-      ["Fuerza y torque", "Calibracion trazable para llaves dinamometricas, celdas de carga y medidores de fuerza."],
-      ["Presion y vacio", "Manometros, transductores y sensores de vacio con presupuestos de incertidumbre."],
-      ["Superficie y perfil", "Rugosidad, placas de superficie y sistemas de medicion de forma."],
-      ["Servicios en sitio", "Calibracion y validacion en planta para reducir tiempos muertos."],
-      ["Capacitacion y documentacion", "SOP, estudios de incertidumbre y asistencia documental lista para auditoria."],
+      {
+        title: "Electricidad",
+        description: "Distribucion electrica, sistemas de iluminacion, respaldos de emergencia e instalacion de equipos de maniobra para instalaciones gubernamentales, de defensa y empresariales. Ejecucion conforme a CPWD y DMRC.",
+      },
+      {
+        title: "Sistemas de Seguridad contra Incendios",
+        description: "Sistemas de deteccion, supresion y evacuacion contra incendios diseñados segun normas BIS/IS y NFPA. Puesta en marcha y cumplimiento normativo para sitios de alta ocupacion e infraestructuras criticas.",
+      },
+      {
+        title: "Trabajos Civiles",
+        description: "Acabados estructurales, roughins MEP, trabajos de cimentacion y modificaciones especificas del sitio. Ejecucion alineada con especificaciones arquitectonicas y requisitos de permisos.",
+      },
+      {
+        title: "CCTV y Vigilancia",
+        description: "Sistemas integrados de videovigilancia, control de acceso y monitoreo para seguridad perimetral e instalaciones completas. Instalacion e integracion en sitios gubernamentales y de defensa.",
+      },
     ],
-    onsiteTitle: "Necesita calibracion en sitio?",
-    onsiteCopy: "Nuestras unidades moviles pueden visitar su instalacion para calibraciones en sitio.",
-    onsiteButton: "Contactanos",
-    whyTitle: "Por que elegir Asiduo Calibration?",
-    why: [
-      ["Acreditacion NABL", "Nuestros centros estan alineados con ISO/IEC 17025."],
-      ["Soporte rapido", "Coordinado desde Ghaziabad para clientes industriales."],
-      ["Calibracion movil", "Llevamos soporte experto directamente a sus instalaciones."],
-    ],
+    ctaTitle: "Listo para trabajar con nosotros?",
+    ctaCopy: "Contacta a nuestro equipo para discutir el alcance de tu proyecto, cronograma y requisitos de cumplimiento.",
+    ctaButton: "Programar una Consulta",
   },
   German: {
-    eyebrow: "Metrologie und Kalibrierung",
-    title: "Dienstleistungen fur Konformitat und Tempo",
-    intro:
-      "Wir helfen Ihnen, die Messintegritat uber den gesamten Kalibrierzyklus hinweg zu sichern, von der Planung bis zur Auditdokumentation.",
+    eyebrow: "Was Wir Leisten",
+    title: "Vier Disziplinen, Ein Verantwortlicher Partner",
+    intro: "Spezialisierte Ausfuhrung bei kritischen Infrastrukturprojekten.",
     services: [
-      ["Dimensionskalibrierung", "Mikrometer, Messschieber und Prazisionswerkzeuge nach nationalen Standards kalibriert."],
-      ["Kraft und Drehmoment", "Ruckverfolgbare Kalibrierung fur Drehmomentschlussel, Lastzellen und Kraftmesser."],
-      ["Druck und Vakuum", "Druckmessgerate, Transducer und Vakuumsensoren mit Unsicherheitsbudgets."],
-      ["Oberflache und Profil", "Rauheit, Messplatten und Formmesssysteme."],
-      ["Vor-Ort-Services", "Kalibrierung und Validierung im Werk zur Minimierung von Stillstanden."],
-      ["Schulung und Dokumentation", "SOPs, Unsicherheitsstudien und auditfahige Berichte."],
+      {
+        title: "Elektrik",
+        description: "Stromverteilung, Beleuchtungssysteme, Notrueckfuehrung und Schaltgeraeteinstallation fuer Regierungs-, Verteidigungs- und Unternehmenseinrichtungen. CPWD und DMRC konforme Ausfuehrung.",
+      },
+      {
+        title: "Brandschutzsysteme",
+        description: "Nach BIS/IS und NFPA-Standards entworfene Branderkennung, Loeschtechnik und Evakuierungssysteme. Inbetriebnahme und gesetzliche Konformitaet fuer hochfrequentierte und kritische Infrastrukturstandorte.",
+      },
+      {
+        title: "Tiefbau",
+        description: "Strukturelle Oberflaechenbehandlung, MEP-Rohinstallation, Fundierungsarbeiten und spezifische Standortmodifikationen. Ausfuehrung gemaess Architekturvorgaben und Genehmigungsanforderungen.",
+      },
+      {
+        title: "CCTV und Ueberwachung",
+        description: "Integrierte Videoueberwachungs-, Zugangsschutz- und Ueberwachungssysteme fuer Umkreis- und anlagenbereite Sicherheit. Installation und Integration auf Regierungs- und Verteidigungsstandorten.",
+      },
     ],
-    onsiteTitle: "Benotigen Sie eine Vor-Ort-Kalibrierung?",
-    onsiteCopy: "Unsere mobilen Einheiten konnen Ihre Anlage fur Vor-Ort-Kalibrierungen besuchen.",
-    onsiteButton: "Kontakt",
-    whyTitle: "Warum Asiduo Calibration?",
-    why: [
-      ["NABL-akkreditiert", "Unsere Zentren sind an ISO/IEC 17025 ausgerichtet."],
-      ["Reaktionsstarker Support", "Koordiniert von unserem Buro in Ghaziabad fur Industriekunden."],
-      ["Mobile Kalibrierung", "Wir bringen Expertenunterstutzung direkt zu Ihnen."],
-    ],
+    ctaTitle: "Bereit, mit uns zu arbeiten?",
+    ctaCopy: "Kontaktiere unser Team, um dein Projektumfang, Zeitplan und Konformitaetsanforderungen zu besprechen.",
+    ctaButton: "Termin Vereinbaren",
   },
 };
-pageContent["English (India)"] = pageContent["English (USA)"];
+copyByLanguage["English (India)"] = copyByLanguage["English (USA)"];
 
 const Services = () => {
   const { language } = useLanguage();
-  const copy = pageContent[language] || pageContent["English (USA)"];
+  const copy = copyByLanguage[language] || copyByLanguage["English (USA)"];
 
   return (
-    <main className="page">
-      <section className="page-hero">
+    <main className="page services-page">
+      <section className="page-hero services-hero">
         <p className="eyebrow">{copy.eyebrow}</p>
         <AnimatedHeadline
           text={copy.title}
-          variant="flip-up"
-          staggerMs={24}
-          durationMs={760}
+          variant="pop-spin"
+          staggerMs={20}
+          durationMs={720}
         />
         <p>{copy.intro}</p>
       </section>
-      <section className="section services">
-        <div className="card-grid">
-          {copy.services.map(([title, desc]) => (
-            <ServiceCard key={title} title={title} desc={desc} />
-          ))}
+
+      <section className="section services-grid-section">
+        <div className="services-grid">
+          {copy.services.map((service) => {
+            const slug = service.title.toLowerCase().replace(/\s+/g, "-");
+            return (
+              <article className="service-card" key={service.title}>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <NavLink className="service-card-button" to={`/services/${slug}`}>
+                  Learn More →
+                </NavLink>
+              </article>
+            );
+          })}
         </div>
       </section>
 
-      <section className="section onsite-cta">
-        <div className="onsite-card">
-          <div>
-            <h4>{copy.onsiteTitle}</h4>
-            <p>{copy.onsiteCopy}</p>
-          </div>
-          <NavLink className="btn btn-primary" to="/contact">
-            {copy.onsiteButton}
-          </NavLink>
+      <section className="section services-cta">
+        <div>
+          <h2>{copy.ctaTitle}</h2>
+          <p>{copy.ctaCopy}</p>
         </div>
-      </section>
-
-      <section className="section why-choose">
-        <div className="info-card">
-          <h3>{copy.whyTitle}</h3>
-          <div className="card-underline" />
-          <div className="why-grid">
-            {copy.why.map(([title, desc], index) => (
-              <div className="why-item" key={title}>
-                <div className="why-icon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    {index === 0 && <path d="M6 12l4 4 8-8" />}
-                    {index === 1 && (
-                      <>
-                        <path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z" />
-                        <circle cx="12" cy="10" r="2.5" />
-                      </>
-                    )}
-                    {index === 2 && (
-                      <>
-                        <rect x="4" y="7" width="12" height="10" rx="2" />
-                        <path d="M16 9h2a2 2 0 0 1 2 2v5a1 1 0 0 1-1 1h-3" />
-                        <circle cx="8" cy="18" r="2" />
-                        <circle cx="16" cy="18" r="2" />
-                      </>
-                    )}
-                  </svg>
-                </div>
-                <h4>{title}</h4>
-                <p>{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <NavLink className="btn btn-primary" to="/contact">
+          {copy.ctaButton}
+        </NavLink>
       </section>
     </main>
   );

@@ -36,9 +36,8 @@ const Footer = () => {
           <div className="footer-links">
             <NavLink to="/">{t.nav.home}</NavLink>
             <NavLink to="/about">{t.footer.aboutUs}</NavLink>
-            <NavLink to="/products">{t.footer.products}</NavLink>
-            <NavLink to="/services">{t.footer.services}</NavLink>
             <NavLink to="/clients">{t.footer.clients}</NavLink>
+            <NavLink to="/services">{t.footer.services}</NavLink>
             <NavLink to="/careers">{t.footer.careers}</NavLink>
             <NavLink to="/contact">{t.footer.contactUs}</NavLink>
           </div>
@@ -55,41 +54,38 @@ const Footer = () => {
         <div className="footer-col">
           <h4>{t.footer.contactTitle}</h4>
           <div className="footer-contact">
-            <strong>ASIDUO ENTERPRISES</strong>
-            <span className="muted">(A GROUP COMPANY)</span>
+            <strong>Abhishek Singh Contractors</strong>
+            <span className="muted">(PROPRIETORSHIP)</span>
             <div className="contact-row">
               <svg className="footer-icon" viewBox="0 0 24 24">
                 <path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z" />
                 <circle cx="12" cy="10" r="2.5" />
               </svg>
-              <p>
-                Ganga Shopping Complex, Sec 16 B, Vasundhara, Ghaziabad,
-                Ghaziabad-201012, Uttar Pradesh, India
-              </p>
+              <p>Faridabad, Haryana - Pan India Operations</p>
             </div>
             <div className="contact-row">
               <svg className="footer-icon" viewBox="0 0 24 24">
                 <path d="M4 6c3 6 8 11 14 14l2-2c-1.5-1-3-1.2-4.5-.5-1.7-1-3.3-2.6-4.3-4.3.7-1.5.5-3-0.5-4.5L4 6Z" />
               </svg>
-              <p>08047677121 (Ext: 5505)</p>
+              <p>+91 XXXXX XXXXX</p>
             </div>
             <div className="contact-row">
               <svg className="footer-icon" viewBox="0 0 24 24">
                 <path d="M4 6h16v12H4z" />
                 <path d="m4 7 8 6 8-6" />
               </svg>
-              <p>sales@asiduoindia.com</p>
+              <p>info@asiduoenterprises.com</p>
             </div>
             <div className="contact-row">
               <svg className="footer-icon" viewBox="0 0 24 24">
                 <circle cx="12" cy="8" r="3" />
                 <path d="M6 19a6 6 0 0 1 12 0" />
               </svg>
-              <p>SUSHIL KUMAR SINGH</p>
+              <p>Abhishek Singh</p>
             </div>
-            <button className="btn btn-primary footer-cta">
+            <NavLink to="/contact" className="btn btn-primary footer-cta">
               {t.footer.contactNow}
-            </button>
+            </NavLink>
           </div>
         </div>
       </div>

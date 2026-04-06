@@ -1,51 +1,57 @@
 import React from "react";
-import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 import { NavLink } from "react-router-dom";
 import AnimatedHeadline from "../components/AnimatedHeadline.jsx";
 import { useLanguage } from "../context/LanguageContext.jsx";
 
 const copyByLanguage = {
   "English (USA)": {
-    eyebrow: "Testimonials",
-    title: "Client Testimonials",
-    intro: "Hear from businesses that trust our precision services.",
-    introTitle: "What Our Clients Say",
-    introCopy:
-      "Our partners rely on Asiduo for accuracy, accountability, and fast support.",
-    ctaTitle: "Ready to experience the Asiduo difference?",
-    ctaCopy: "Join teams that have improved their measurement capabilities with our support.",
-    ctaButton: "Contact Us Today",
+    eyebrow: "Track Record",
+    title: "Proven Delivery Excellence",
+    intro: "A decade of trusted partnership with India's most critical organisations.",
+    projectValue: "₹1.87 Cr+",
+    projectValueLabel: "TOTAL PROJECT VALUE EXECUTED",
+    projectStats: "25 Projects · 10+ Client Organisations",
+    clientOrganizations: "CPWD · UPSC · IAF Hindan · MeitY · Survey of India · JLN Stadium · South Block · BPCL · PMM&L · NMRC · DMRC",
+    ctaTitle: "Ready to partner with a trusted contractor?",
+    ctaCopy: "We deliver compliance-led solutions across Electrical, Fire Safety, Civil, and CCTV disciplines.",
+    ctaButton: "Schedule a Consultation",
   },
   "English (India)": null,
   Italian: {
-    eyebrow: "Testimonianze",
-    title: "Testimonianze dei clienti",
-    intro: "Ascolta le aziende che si affidano ai nostri servizi di precisione.",
-    introTitle: "Cosa dicono i nostri clienti",
-    introCopy: "I nostri partner si affidano ad Asiduo per precisione, responsabilita e supporto rapido.",
-    ctaTitle: "Pronto a vivere la differenza Asiduo?",
-    ctaCopy: "Unisciti ai team che hanno migliorato le loro capacita di misura con il nostro supporto.",
-    ctaButton: "Contattaci oggi",
+    eyebrow: "Track Record",
+    title: "Eccellenza di esecuzione provata",
+    intro: "Un decennio di partnership fidata con le organizzazioni piu critiche dell'India.",
+    projectValue: "₹1.87 Cr+",
+    projectValueLabel: "VALORE TOTALE DEL PROGETTO ESEGUITO",
+    projectStats: "25 Progetti · 10+ Organizzazioni clienti",
+    clientOrganizations: "CPWD · UPSC · IAF Hindan · MeitY · Survey of India · JLN Stadium · South Block · BPCL · PMM&L · NMRC · DMRC",
+    ctaTitle: "Pronto a collaborare con un appaltatore affidabile?",
+    ctaCopy: "Forniamo soluzioni conformi ai regolamenti nei settori Elettrico, Sicurezza Antincendio, Civile e CCTV.",
+    ctaButton: "Pianifica una consulenza",
   },
   Spanish: {
-    eyebrow: "Testimonios",
-    title: "Testimonios de clientes",
-    intro: "Escuche a las empresas que confian en nuestros servicios de precision.",
-    introTitle: "Lo que dicen nuestros clientes",
-    introCopy: "Nuestros socios confian en Asiduo por su precision, responsabilidad y soporte rapido.",
-    ctaTitle: "Listo para experimentar la diferencia Asiduo?",
-    ctaCopy: "Unase a los equipos que han mejorado sus capacidades de medicion con nuestro apoyo.",
-    ctaButton: "Contactenos hoy",
+    eyebrow: "Track Record",
+    title: "Excelencia en Entrega Comprobada",
+    intro: "Una decada de asociacion confiable con las organizaciones mas criticas de India.",
+    projectValue: "₹1.87 Cr+",
+    projectValueLabel: "VALOR TOTAL DEL PROYECTO EJECUTADO",
+    projectStats: "25 Proyectos · 10+ Organizaciones clientas",
+    clientOrganizations: "CPWD · UPSC · IAF Hindan · MeitY · Survey of India · JLN Stadium · South Block · BPCL · PMM&L · NMRC · DMRC",
+    ctaTitle: "Listo para asociarse con un contratista confiable?",
+    ctaCopy: "Entregamos soluciones cumplidas en disciplinas Electrica, Seguridad contra Incendios, Civil y CCTV.",
+    ctaButton: "Programar una consulta",
   },
   German: {
-    eyebrow: "Referenzen",
-    title: "Kundenstimmen",
-    intro: "Erfahren Sie von Unternehmen, die unseren Prazisionsservices vertrauen.",
-    introTitle: "Was unsere Kunden sagen",
-    introCopy: "Unsere Partner verlassen sich auf Asiduo fur Genauigkeit, Verantwortung und schnellen Support.",
-    ctaTitle: "Mochten Sie den Asiduo-Unterschied erleben?",
-    ctaCopy: "SchlieBen Sie sich Teams an, die ihre Messfahigkeiten mit unserer Hilfe verbessert haben.",
-    ctaButton: "Heute kontaktieren",
+    eyebrow: "Track Record",
+    title: "Bewiesene Lieferexzellenz",
+    intro: "Ein Jahrzehnt vertrauensvoller Partnerschaft mit Indiens wichtigsten Organisationen.",
+    projectValue: "₹1.87 Cr+",
+    projectValueLabel: "GESAMTWERT AUSGEFUHRTER PROJEKTE",
+    projectStats: "25 Projekte · 10+ Kundenorganisationen",
+    clientOrganizations: "CPWD · UPSC · IAF Hindan · MeitY · Survey of India · JLN Stadium · South Block · BPCL · PMM&L · NMRC · DMRC",
+    ctaTitle: "Bereit, mit einem vertrauenswurdigen Auftragnehmer zu arbeiten?",
+    ctaCopy: "Wir liefern konforme Losungen in den Bereichen Elektrik, Brandschutz, Tiefbau und CCTV.",
+    ctaButton: "Termin vereinbaren",
   },
 };
 copyByLanguage["English (India)"] = copyByLanguage["English (USA)"];
@@ -67,12 +73,17 @@ const Testimonials = () => {
         <p>{copy.intro}</p>
       </section>
 
-      <section className="section testimonials-intro">
-        <div className="testimonials-icon" aria-hidden="true">
-          <HiOutlineChatBubbleLeftRight />
-        </div>
-        <h2>{copy.introTitle}</h2>
-        <p>{copy.introCopy}</p>
+      <section className="section testimonials-achievement">
+        <article className="testimonials-card">
+          <div className="testimonials-card-header">
+            <div className="testimonials-card-figure">{copy.projectValue}</div>
+            <div className="testimonials-card-label">{copy.projectValueLabel}</div>
+          </div>
+          <div className="testimonials-card-body">
+            <p className="testimonials-stats">{copy.projectStats}</p>
+            <p className="testimonials-clients">{copy.clientOrganizations}</p>
+          </div>
+        </article>
       </section>
 
       <section className="section testimonials-cta">

@@ -79,17 +79,17 @@ const Navbar = () => {
 
     if (!query) {
       setSearchOpen(false);
-      navigate("/products");
+      navigate("/clients");
       return;
     }
 
-    navigate(`/products?search=${encodeURIComponent(query)}`);
+    navigate(`/clients?search=${encodeURIComponent(query)}`);
   };
 
   const handleSearchToggle = () => {
     if (searchOpen && !searchTerm.trim()) {
       setSearchOpen(false);
-      navigate("/products");
+      navigate("/clients");
       return;
     }
 
@@ -122,22 +122,16 @@ const Navbar = () => {
           {t.nav.home}
         </NavLink>
         <NavLink
-          to="/products"
+          to="/clients"
           className={({ isActive }) => (isActive ? "active" : undefined)}
         >
-          {t.nav.products}
+          {t.nav.clients}
         </NavLink>
         <NavLink
           to="/services"
           className={({ isActive }) => (isActive ? "active" : undefined)}
         >
-          {t.nav.metrology}
-        </NavLink>
-        <NavLink
-          to="/clients"
-          className={({ isActive }) => (isActive ? "active" : undefined)}
-        >
-          {t.nav.clients}
+          {t.nav.services}
         </NavLink>
         <div className="nav-dropdown">
           <button className="nav-dropbtn" type="button">
@@ -174,6 +168,12 @@ const Navbar = () => {
             </NavLink>
           </div>
         </div>
+        <NavLink
+          to="/projects"
+          className={({ isActive }) => (isActive ? "active" : undefined)}
+        >
+          {t.nav.projects}
+        </NavLink>
         <NavLink
           to="/careers"
           className={({ isActive }) => (isActive ? "active" : undefined)}

@@ -1,35 +1,71 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Hero from "../components/Hero.jsx";
-import ServiceCard from "../components/ServiceCard.jsx";
-import ProductCard from "../components/ProductCard.jsx";
 import { useLanguage } from "../context/LanguageContext.jsx";
+
+const clientShowcase = [
+  {
+    code: "NMRC",
+    name: "Noida Metro Rail Corporation",
+    domains: ["Electrical", "Civil", "CCTV"],
+  },
+  {
+    code: "IAF",
+    name: "Indian Air Force - AFS Hindan, Ghaziabad",
+    domains: ["Fire", "Civil", "Electrical"],
+  },
+  {
+    code: "UPSC",
+    name: "Union Public Service Commission",
+    domains: ["HVAC/AC"],
+  },
+  {
+    code: "MEITY",
+    name: "Ministry of Electronics and Information Technology",
+    domains: ["Fire Safety"],
+  },
+  {
+    code: "BPCL",
+    name: "Bharat Petroleum Corporation Limited",
+    domains: ["Electrical", "Petroleum"],
+  },
+  {
+    code: "SOI",
+    name: "Survey of India, Dehradun",
+    domains: ["Electrical", "HVAC/AC"],
+  },
+];
+
+const aboutSectionImageUrl =
+  "https://res.cloudinary.com/dlx9tnj7p/image/upload/v1775457009/ChatGPT_Image_Apr_5_2026_11_38_53_AM_kohezu.png";
 
 const content = {
   "English (USA)": {
     aboutEyebrow: "About Asiduo",
-    aboutTitle: "Metrology partners focused on accuracy, speed, and compliance",
+    aboutTitle: "Built for Critical Projects Across India",
     aboutCopy:
-      "We help manufacturing teams maintain measurement integrity with calibrated instruments, audited processes, and reliable reporting.",
-    aboutCards: [
-      ["Consultative Support", "We analyze your measurement workflow and recommend the right instrumentation mix."],
-      ["Traceable Results", "Every certificate references national and international standards for audit readiness."],
-      ["Fast Turnaround", "Structured intake and dispatch systems reduce downtime for your production lines."],
-      ["Audit-Ready Documentation", "Clear certificates, labels, and service records keep compliance reviews organized."],
-      ["Onsite Coordination", "We plan pickups, onsite visits, and return schedules around your production priorities."],
-      ["Expert Guidance", "Our engineers help teams interpret tolerances, uncertainty, and calibration intervals with confidence."],
+      "Abhishek Singh Contractors delivers Electrical, Fire Safety, Civil, and CCTV works with compliance-led execution for government, defence, and enterprise environments.",
+    aboutPoints: [
+      "Government-grade compliance aligned to CPWD, DMRC, and BIS/IS standards.",
+      "Single accountable contractor across four disciplines with no coordination gaps.",
+      "Proven delivery in high-security and multi-location projects across India.",
     ],
-    servicesEyebrow: "Services",
-    servicesTitle: "Comprehensive metrology solutions",
+    aboutStats: [
+      { value: "2021", label: "Established" },
+      { value: "25+", label: "Projects Completed" },
+      { value: "4", label: "Service Disciplines" },
+      { value: "PAN", label: "India Coverage" },
+    ],
+    aboutImageAlt: "Critical infrastructure contractor capabilities",
+    servicesEyebrow: "What We Deliver",
+    servicesTitle: "Four Disciplines, One Accountable Partner",
     servicesCopy:
-      "From lab calibration to onsite commissioning, we support your measurement infrastructure end-to-end.",
+      "Specialised execution across critical infrastructure projects.",
     services: [
-      ["Calibration Services", "Dimensional, force, pressure, and torque calibration aligned to national standards."],
-      ["Metrology Equipment Supply", "Precision gauges, CMM accessories, surface plates, and measurement fixtures."],
-      ["Installation & Commissioning", "On-site setup, validation, and uncertainty studies for new measurement systems."],
-      ["Training & Support", "Operator training, SOP creation, and audit-ready documentation support."],
-      ["Uncertainty Studies", "Measurement uncertainty evaluation and process capability reviews for critical instruments."],
-      ["Preventive Maintenance", "Scheduled upkeep, performance checks, and service planning to extend instrument life."],
+      { name: "Electrical", description: "Power distribution, lighting systems, emergency backups, and switchgear installation for government, defence, and enterprise facilities. CPWD and DMRC compliant execution." },
+      { name: "Fire Safety Systems", description: "Fire detection, suppression, and evacuation systems designed to BIS/IS and NFPA standards. Commissioning and statutory compliance for high-occupancy and critical infrastructure sites." },
+      { name: "Civil Works", description: "Structural finishes, MEP rough-ins, foundation work, and site-specific modifications. Execution aligned to architectural specs and permit requirements across India." },
+      { name: "CCTV & Surveillance", description: "Integrated video surveillance, access control, and monitoring systems for perimeter and facility-wide security. Installation and integration on government and defence sites." },
     ],
     productsEyebrow: "Products",
     productsTitle: "Precision instruments and accessories",
@@ -39,8 +75,9 @@ const content = {
       ["Torque Wrench Calibrator", "Bench-top calibration system with traceable load cells.", "Torque"],
     ],
     viewAll: "View All Products",
-    clientsEyebrow: "Clients",
-    clientsTitle: "Trusted by quality leaders",
+    clientsEyebrow: "Who We Work With",
+    clientsTitle: "Trusted by Public Infrastructure, Defence, and Enterprise Teams",
+    clientsAction: "View All Clients",
     quotes: [
       ['"Asiduo Enterprises helped us stabilize our gauge calibration cycle and improved audit readiness."', "Quality Manager, Auto Components"],
       ['"Their team is responsive and precise. The uncertainty study was detailed and easy to follow."', "Plant Head, Precision Engineering"],
@@ -63,17 +100,15 @@ const content = {
       ["Coordinamento in sede", "Pianifichiamo ritiri, visite in sede e riconsegne in base alle priorita produttive."],
       ["Guida tecnica esperta", "I nostri tecnici aiutano il team a interpretare tolleranze, incertezza e intervalli di taratura."],
     ],
-    servicesEyebrow: "Servizi",
-    servicesTitle: "Soluzioni metrologiche complete",
+    servicesEyebrow: "Cosa Consegniamo",
+    servicesTitle: "Quattro Discipline, Un Partner Affidabile",
     servicesCopy:
-      "Dalla taratura in laboratorio alla messa in servizio in sede, supportiamo tutta la tua infrastruttura di misura.",
+      "Esecuzione specializzata su progetti infrastrutturali critici.",
     services: [
-      ["Servizi di taratura", "Taratura dimensionale, forza, pressione e coppia secondo standard nazionali."],
-      ["Fornitura di strumenti metrologici", "Calibri di precisione, accessori CMM, piani di riscontro e attrezzature di misura."],
-      ["Installazione e messa in servizio", "Configurazione in sede, validazione e studi di incertezza per nuovi sistemi."],
-      ["Formazione e supporto", "Formazione operatori, SOP e supporto documentale per audit."],
-      ["Studi di incertezza", "Valutazioni dell'incertezza di misura e revisioni di capacita per strumenti critici."],
-      ["Manutenzione preventiva", "Controlli programmati, verifiche prestazionali e piani di assistenza per prolungare la vita utile."],
+      { name: "Impianti Elettrici", description: "Distribuzione elettrica, sistemi di illuminazione, backup di emergenza e installazioni di switchgear per strutture governative, difensive e aziendali. Esecuzione conforme CPWD e DMRC." },
+      { name: "Sistemi Antincendio", description: "Tubi di rilevazione, sistemi di soppressione ed evacuazione progettati secondo BIS/IS e NFPA. Messa in servizio e conformita normativa per siti ad alta occupazione e infrastrutture critiche." },
+      { name: "Lavori Civili", description: "Finiture strutturali, rough-ins MEP, lavori di fondazione e modifiche specifiche del sito. Esecuzione allineata alle specifiche architettoniche e ai requisiti sui permessi." },
+      { name: "CCTV e Sorveglianza", description: "Sistemi integrati di videosorveglianza, controllo accessi e monitoraggio per la sicurezza perimetrale e dell'intera struttura. Installazione e integrazione in siti governativi e difensive." },
     ],
     productsEyebrow: "Prodotti",
     productsTitle: "Strumenti e accessori di precisione",
@@ -106,17 +141,15 @@ const content = {
       ["Coordinacion en sitio", "Planificamos recolecciones, visitas tecnicas y entregas segun sus prioridades de produccion."],
       ["Asesoria experta", "Nuestros ingenieros ayudan a interpretar tolerancias, incertidumbre e intervalos de calibracion."],
     ],
-    servicesEyebrow: "Servicios",
-    servicesTitle: "Soluciones integrales de metrologia",
+    servicesEyebrow: "Que Entregamos",
+    servicesTitle: "Cuatro Disciplinas, Un Socio Responsable",
     servicesCopy:
-      "Desde calibracion en laboratorio hasta puesta en marcha en sitio, apoyamos toda su infraestructura de medicion.",
+      "Ejecucion especializada en proyectos de infraestructura critica.",
     services: [
-      ["Servicios de calibracion", "Calibracion dimensional, fuerza, presion y torque alineada con normas nacionales."],
-      ["Suministro de equipos de metrologia", "Calibres de precision, accesorios CMM, placas de superficie y fijaciones."],
-      ["Instalacion y puesta en marcha", "Configuracion en sitio, validacion y estudios de incertidumbre."],
-      ["Capacitacion y soporte", "Formacion de operadores, SOP y apoyo documental listo para auditoria."],
-      ["Estudios de incertidumbre", "Evaluacion de incertidumbre de medicion y revision de capacidad para instrumentos criticos."],
-      ["Mantenimiento preventivo", "Revisiones programadas, controles de rendimiento y planes de servicio para alargar la vida util."],
+      { name: "Electricidad", description: "Distribucion electrica, sistemas de iluminacion, respaldos de emergencia e instalacion de equipos de maniobra para instalaciones gubernamentales, de defensa y empresariales. Ejecucion conforme a CPWD y DMRC." },
+      { name: "Sistemas de Seguridad contra Incendios", description: "Sistemas de deteccion, supresion y evacuacion contra incendios diseñados segun normas BIS/IS y NFPA. Puesta en marcha y cumplimiento normativo para sitios de alta ocupacion e infraestructuras criticas." },
+      { name: "Trabajos Civiles", description: "Acabados estructurales, roughins MEP, trabajos de cimentacion y modificaciones especificas del sitio. Ejecucion alineada con especificaciones arquitectonicas y requisitos de permisos." },
+      { name: "CCTV y Vigilancia", description: "Sistemas integrados de videovigilancia, control de acceso y monitoreo para seguridad perimetral e instalaciones completas. Instalacion e integracion en sitios gubernamentales y de defensa." },
     ],
     productsEyebrow: "Productos",
     productsTitle: "Instrumentos y accesorios de precision",
@@ -149,17 +182,15 @@ const content = {
       ["Vor-Ort-Koordination", "Wir planen Abholung, Vor-Ort-Termine und Rucklieferung nach Ihren Produktionsprioritaten."],
       ["Technische Fachberatung", "Unsere Ingenieure helfen bei Toleranzen, Unsicherheit und passenden Kalibrierintervallen."],
     ],
-    servicesEyebrow: "Dienstleistungen",
-    servicesTitle: "Umfassende metrologische Losungen",
+    servicesEyebrow: "Was Wir Leisten",
+    servicesTitle: "Vier Disziplinen, Ein Verantwortlicher Partner",
     servicesCopy:
-      "Von der Laborkalibrierung bis zur Inbetriebnahme vor Ort unterstutzen wir Ihre gesamte Messinfrastruktur.",
+      "Spezialisierte Ausfuehrung bei kritischen Infrastrukturprojekten.",
     services: [
-      ["Kalibrierdienstleistungen", "Dimensions-, Kraft-, Druck- und Drehmomentkalibrierung nach nationalen Standards."],
-      ["Lieferung von Metrologiegeraten", "Prazisionslehren, CMM-Zubehor, Messplatten und Vorrichtungen."],
-      ["Installation und Inbetriebnahme", "Vor-Ort-Einrichtung, Validierung und Unsicherheitsstudien fur neue Systeme."],
-      ["Schulung und Support", "Bedienerschulung, SOP-Erstellung und auditfahige Dokumentation."],
-      ["Unsicherheitsstudien", "Bewertung der Messunsicherheit und Fahigkeitsprufungen fur kritische Messmittel."],
-      ["Praventive Wartung", "Geplante Wartung, Leistungsprufungen und Serviceplane fur eine langere Geratelebensdauer."],
+      { name: "Elektrik", description: "Stromverteilung, Beleuchtungssysteme, Notrueckfuehrung und Schaltgeraeteinstallation fuer Regierungs-, Verteidigungs- und Unternehmenseinrichtungen. CPWD und DMRC konforme Ausfuehrung." },
+      { name: "Brandschutzsysteme", description: "Nach BIS/IS und NFPA-Standards entworfene Branderkennung, Loeschtechnik und Evakuierungssysteme. Inbetriebnahme und gesetzliche Konformitaet fuer hochfrequentierte und kritische Infrastrukturstandorte." },
+      { name: "Tiefbau", description: "Strukturelle Oberflaechenbehandlung, MEP-Rohinstallation, Fundierungsarbeiten und spezifische Standortmodifikationen. Ausfuehrung gemaess Architekturvorgaben und Genehmigungsanforderungen." },
+      { name: "CCTV und Ueberwachung", description: "Integrierte Videoueberwachungs-, Zugangsschutz- und Ueberwachungssysteme fuer Umkreis- und anlagenbereite Sicherheit. Installation und Integration auf Regierungs- und Verteidigungsstandorten." },
     ],
     productsEyebrow: "Produkte",
     productsTitle: "Prazisionsinstrumente und Zubehor",
@@ -185,35 +216,33 @@ content["English (India)"] = content["English (USA)"];
 const Home = () => {
   const { language } = useLanguage();
   const copy = content[language] || content["English (USA)"];
-  const aboutTrackCopies = [0, 1];
-  const serviceTrackCopies = [0, 1];
+  const aboutPoints = copy.aboutPoints || content["English (USA)"].aboutPoints;
+  const aboutStats = copy.aboutStats || content["English (USA)"].aboutStats;
+  const aboutImageAlt = copy.aboutImageAlt || content["English (USA)"].aboutImageAlt;
 
   return (
     <main>
       <Hero />
 
-      <section className="section about">
-        <div className="section-heading">
-          <p className="eyebrow">{copy.aboutEyebrow}</p>
-          <h2>{copy.aboutTitle}</h2>
-          <p>{copy.aboutCopy}</p>
-        </div>
-        <div className="about-carousel">
-          <div className="about-track">
-            {aboutTrackCopies.map((trackCopy) => (
-              <div
-                className="about-track-group"
-                key={trackCopy}
-                aria-hidden={trackCopy === 1}
-              >
-                {copy.aboutCards.map(([title, desc], cardIndex) => (
-                  <div className="about-card" key={`${trackCopy}-${cardIndex}-${title}`}>
-                    <h3>{title}</h3>
-                    <p>{desc}</p>
-                  </div>
-                ))}
-              </div>
-            ))}
+      <section className="section-about">
+        <div className="home-about-shell">
+          <div className="home-about-copy">
+            <p className="eyebrow">{copy.aboutEyebrow}</p>
+            <h2>{copy.aboutTitle}</h2>
+            <p>{copy.aboutCopy}</p>
+            <ul className="home-about-points">
+              {aboutPoints.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+            <div className="home-about-stats" aria-label="Company highlights">
+              {aboutStats.map((stat) => (
+                <article className="home-about-stat" key={stat.label}>
+                  <span>{stat.value}</span>
+                  <strong>{stat.label}</strong>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -224,46 +253,13 @@ const Home = () => {
           <h2>{copy.servicesTitle}</h2>
           <p>{copy.servicesCopy}</p>
         </div>
-        <div className="services-carousel">
-          <div className="services-track">
-            {serviceTrackCopies.map((trackCopy) => (
-              <div
-                className="services-track-group"
-                key={trackCopy}
-                aria-hidden={trackCopy === 1}
-              >
-                {copy.services.map(([title, desc], cardIndex) => (
-                  <ServiceCard
-                    key={`${trackCopy}-${cardIndex}-${title}`}
-                    title={title}
-                    desc={desc}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section products-preview">
-        <div className="section-heading">
-          <p className="eyebrow">{copy.productsEyebrow}</p>
-          <h2>{copy.productsTitle}</h2>
-        </div>
-        <div className="product-grid">
-          {copy.products.map(([name, description, category]) => (
-            <ProductCard
-              key={name}
-              name={name}
-              description={description}
-              category={category}
-            />
+        <div className="services-grid-home">
+          {copy.services.map((service) => (
+            <article className="service-card-home" key={service.name}>
+              <h3>{service.name}</h3>
+              <p>{service.description}</p>
+            </article>
           ))}
-        </div>
-        <div className="section-actions">
-          <NavLink className="btn btn-primary" to="/products">
-            {copy.viewAll}
-          </NavLink>
         </div>
       </section>
 
@@ -272,13 +268,23 @@ const Home = () => {
           <p className="eyebrow">{copy.clientsEyebrow}</p>
           <h2>{copy.clientsTitle}</h2>
         </div>
-        <div className="testimonial-grid">
-          {copy.quotes.map(([text, by]) => (
-            <div className="testimonial-card" key={by}>
-              <p>{text}</p>
-              <span>{by}</span>
-            </div>
+        <div className="clients-grid">
+          {clientShowcase.map((client) => (
+            <article className="client-card" key={client.code}>
+              <p className="client-code">{client.code}</p>
+              <h3>{client.name}</h3>
+              <div className="client-tags">
+                {client.domains.map((domain) => (
+                  <span key={`${client.code}-${domain}`}>{domain}</span>
+                ))}
+              </div>
+            </article>
           ))}
+        </div>
+        <div className="section-actions">
+          <NavLink className="btn btn-primary" to="/clients">
+            {copy.clientsAction || "View All Clients"}
+          </NavLink>
         </div>
       </section>
 
