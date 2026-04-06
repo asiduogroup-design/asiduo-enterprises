@@ -4,45 +4,59 @@ import { useLanguage } from "../context/LanguageContext.jsx";
 
 const copyByLanguage = {
   "English (USA)": {
-    eyebrow: "Clients",
-    title: "Manufacturers who trust Asiduo Enterprises",
+    eyebrow: "Who We Work With",
+    title: "Trusted by Public Infrastructure, Defence, and Enterprise Teams",
     intro:
-      "We support quality teams across automotive, aerospace, medical, and precision engineering industries.",
-    quotes: [
-      ['"Asiduo Enterprises helped us stabilize our gauge calibration cycle and improved audit readiness."', "Quality Manager, Auto Components"],
-      ['"Their team is responsive and precise. The uncertainty study was detailed and easy to follow."', "Plant Head, Precision Engineering"],
-    ],
+      "A snapshot of organizations and institutions referenced in your portfolio, across electrical, fire safety, civil, CCTV, HVAC, and petroleum-related scopes.",
+    activeTitle: "Active & Delivered Clients",
+    targetTitle: "Actively Targeting",
+    targetCopy:
+      "With BPCL project exposure and multi-discipline compliance capability, we are positioned for empanelment with additional petroleum and energy leaders.",
   },
   "English (India)": null,
-  Italian: {
-    eyebrow: "Clienti",
-    title: "Produttori che si affidano ad Asiduo Enterprises",
-    intro: "Supportiamo team qualita nei settori automotive, aerospace, medicale e ingegneria di precisione.",
-    quotes: [
-      ['"Asiduo Enterprises ci ha aiutato a stabilizzare il ciclo di taratura e a migliorare la preparazione agli audit."', "Responsabile qualita, componenti auto"],
-      ['"Il team e reattivo e preciso. Lo studio di incertezza era dettagliato e chiaro."', "Direttore di stabilimento, ingegneria di precisione"],
-    ],
-  },
-  Spanish: {
-    eyebrow: "Clientes",
-    title: "Fabricantes que confian en Asiduo Enterprises",
-    intro: "Apoyamos a equipos de calidad en automocion, aeroespacial, medico e ingenieria de precision.",
-    quotes: [
-      ['"Asiduo Enterprises nos ayudo a estabilizar el ciclo de calibracion y mejorar la preparacion para auditorias."', "Gerente de calidad, autopartes"],
-      ['"Su equipo es preciso y atento. El estudio de incertidumbre fue claro y detallado."', "Jefe de planta, ingenieria de precision"],
-    ],
-  },
-  German: {
-    eyebrow: "Kunden",
-    title: "Hersteller, die Asiduo Enterprises vertrauen",
-    intro: "Wir unterstutzen Qualitatsteams in der Automobil-, Luftfahrt-, Medizin- und Prazisionstechnik.",
-    quotes: [
-      ['"Asiduo Enterprises half uns, den Kalibrierzyklus zu stabilisieren und die Auditbereitschaft zu verbessern."', "Qualitatsmanager, Autokomponenten"],
-      ['"Das Team arbeitet reaktionsschnell und prazise. Die Unsicherheitsstudie war klar und detailliert."', "Werksleiter, Prazisionstechnik"],
-    ],
-  },
+  Italian: null,
+  Spanish: null,
+  German: null,
 };
 copyByLanguage["English (India)"] = copyByLanguage["English (USA)"];
+copyByLanguage.Italian = copyByLanguage["English (USA)"];
+copyByLanguage.Spanish = copyByLanguage["English (USA)"];
+copyByLanguage.German = copyByLanguage["English (USA)"];
+
+const activeClients = [
+  {
+    code: "NMRC",
+    name: "Noida Metro Rail Corporation",
+    domains: ["Electrical", "Civil", "CCTV"],
+  },
+  {
+    code: "IAF",
+    name: "Indian Air Force - AFS Hindan, Ghaziabad",
+    domains: ["Fire", "Civil", "Electrical"],
+  },
+  {
+    code: "UPSC",
+    name: "Union Public Service Commission",
+    domains: ["HVAC/AC"],
+  },
+  {
+    code: "MEITY",
+    name: "Ministry of Electronics and Information Technology",
+    domains: ["Fire Safety"],
+  },
+  {
+    code: "BPCL",
+    name: "Bharat Petroleum Corporation Limited",
+    domains: ["Electrical", "Petroleum"],
+  },
+  {
+    code: "SOI",
+    name: "Survey of India, Dehradun",
+    domains: ["Electrical", "HVAC/AC"],
+  },
+];
+
+const targetAccounts = ["IOCL", "HPCL", "ONGC", "GAIL"];
 
 const Clients = () => {
   const { language } = useLanguage();
@@ -60,12 +74,50 @@ const Clients = () => {
         />
         <p>{copy.intro}</p>
       </section>
+
+      <section className="section clients-showcase">
+        <div className="section-heading">
+          <h2>{copy.activeTitle}</h2>
+        </div>
+
+        <div className="clients-grid">
+          {activeClients.map((client) => (
+            <article className="client-card" key={client.code}>
+              <p className="client-code">{client.code}</p>
+              <h3>{client.name}</h3>
+              <div className="client-tags">
+                {client.domains.map((domain) => (
+                  <span key={`${client.code}-${domain}`}>{domain}</span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section clients-targets">
+        <div className="clients-targets-card">
+          <p className="eyebrow">{copy.targetTitle}</p>
+          <p>{copy.targetCopy}</p>
+          <div className="client-target-chips">
+            {targetAccounts.map((account) => (
+              <span key={account}>{account}</span>
+            ))}
+          </div>
+          <p className="clients-targets-note">
+            Plus other petroleum and energy majors as part of ongoing expansion.
+          </p>
+        </div>
+      </section>
+
       <section className="section testimonials">
         <div className="testimonial-grid">
-          {copy.quotes.map(([text, by]) => (
-            <div className="testimonial-card" key={by}>
-              <p>{text}</p>
-              <span>{by}</span>
+          {activeClients.slice(0, 2).map((client) => (
+            <div className="testimonial-card" key={`proof-${client.code}`}>
+              <p>
+                {client.name} project experience in {client.domains.join(", ")}.
+              </p>
+              <span>{client.code}</span>
             </div>
           ))}
         </div>
