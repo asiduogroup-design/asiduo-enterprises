@@ -1,7 +1,23 @@
 import Project from "../models/Project.js";
+import projectSeed from "../data/projectSeed.js";
+
+const buildProjectKey = (project) =>
+  `${project.title}||${project.client}||${project.location}||${project.value}`;
 
 export const listProjects = async (req, res, next) => {
   try {
+    if (projectSeed.length > 0) {
+      const existing = await Project.find({}, "title client location value").lean();
+      const existingKeys = new Set(existing.map(buildProjectKey));
+      const missingSeedProjects = projectSeed.filter(
+        (seedProject) => !existingKeys.has(buildProjectKey(seedProject))
+      );
+
+      if (missingSeedProjects.length > 0) {
+        await Project.insertMany(missingSeedProjects);
+      }
+    }
+
     const projects = await Project.find().sort({ createdAt: -1 });
     return res.json(projects);
   } catch (err) {

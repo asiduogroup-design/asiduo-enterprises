@@ -12,11 +12,46 @@ const copyByLanguage = {
     targetTitle: "Actively Targeting",
     targetCopy:
       "With BPCL project exposure and multi-discipline compliance capability, we are positioned for empanelment with additional petroleum and energy leaders.",
+    targetsNote: "Plus other petroleum and energy majors as part of ongoing expansion.",
+    experienceIn: "project experience in",
   },
   "English (India)": null,
-  Italian: null,
-  Spanish: null,
-  German: null,
+  Italian: {
+    eyebrow: "Con Chi Lavoriamo",
+    title: "Scelti da team di infrastrutture pubbliche, difesa e impresa",
+    intro:
+      "Una panoramica di organizzazioni e istituzioni presenti nel portafoglio, tra ambiti elettrici, antincendio, civili, CCTV, HVAC e petroliferi.",
+    activeTitle: "Clienti Attivi e Consegnati",
+    targetTitle: "In Fase di Target",
+    targetCopy:
+      "Con esperienza su progetti BPCL e capacita multi-disciplinare orientata alla conformita, siamo pronti per ulteriori empanelment nel settore energia.",
+    targetsNote: "Inoltre altri grandi gruppi petroliferi ed energetici in espansione.",
+    experienceIn: "esperienza progettuale in",
+  },
+  Spanish: {
+    eyebrow: "Con Quienes Trabajamos",
+    title: "Con la confianza de equipos de infraestructura publica, defensa y empresa",
+    intro:
+      "Una vista general de organizaciones e instituciones de su portafolio en ambitos electrico, contra incendios, civil, CCTV, HVAC y petroleo.",
+    activeTitle: "Clientes Activos y Entregados",
+    targetTitle: "En Objetivo Activo",
+    targetCopy:
+      "Con experiencia en proyectos BPCL y capacidad multidisciplinaria de cumplimiento, estamos posicionados para nuevas incorporaciones en energia y petroleo.",
+    targetsNote: "Ademas de otros grandes actores de petroleo y energia en expansion.",
+    experienceIn: "experiencia de proyecto en",
+  },
+  German: {
+    eyebrow: "Mit Wem Wir Arbeiten",
+    title: "Vertrauen von Teams aus Infrastruktur, Verteidigung und Unternehmen",
+    intro:
+      "Ein Einblick in Organisationen und Institutionen im Portfolio uber Elektrik, Brandschutz, Tiefbau, CCTV, HVAC und Petroleum.",
+    activeTitle: "Aktive und Gelieferte Kunden",
+    targetTitle: "Aktiv Im Fokus",
+    targetCopy:
+      "Mit BPCL-Projekterfahrung und multidisziplinarer Compliance-Kompetenz sind wir fur weitere Energie- und Petroleum-Empanelments positioniert.",
+    targetsNote: "Sowie weitere fuhrende Energie- und Petroleumunternehmen in Expansion.",
+    experienceIn: "Projekterfahrung in",
+  },
 };
 copyByLanguage["English (India)"] = copyByLanguage["English (USA)"];
 copyByLanguage.Italian = copyByLanguage["English (USA)"];
@@ -105,7 +140,7 @@ const Clients = () => {
             ))}
           </div>
           <p className="clients-targets-note">
-            Plus other petroleum and energy majors as part of ongoing expansion.
+            {copy.targetsNote}
           </p>
         </div>
       </section>
@@ -115,7 +150,7 @@ const Clients = () => {
           {activeClients.slice(0, 2).map((client) => (
             <div className="testimonial-card" key={`proof-${client.code}`}>
               <p>
-                {client.name} project experience in {client.domains.join(", ")}.
+                {client.name} {copy.experienceIn} {client.domains.join(", ")}.
               </p>
               <span>{client.code}</span>
             </div>

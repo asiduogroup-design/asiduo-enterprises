@@ -61,20 +61,13 @@ const content = {
     servicesTitle: "Four Disciplines, One Accountable Partner",
     servicesCopy:
       "Specialised execution across critical infrastructure projects.",
+    servicesAction: "View",
     services: [
       { name: "Electrical", description: "Power distribution, lighting systems, emergency backups, and switchgear installation for government, defence, and enterprise facilities. CPWD and DMRC compliant execution." },
       { name: "Fire Safety Systems", description: "Fire detection, suppression, and evacuation systems designed to BIS/IS and NFPA standards. Commissioning and statutory compliance for high-occupancy and critical infrastructure sites." },
       { name: "Civil Works", description: "Structural finishes, MEP rough-ins, foundation work, and site-specific modifications. Execution aligned to architectural specs and permit requirements across India." },
       { name: "CCTV & Surveillance", description: "Integrated video surveillance, access control, and monitoring systems for perimeter and facility-wide security. Installation and integration on government and defence sites." },
     ],
-    productsEyebrow: "Products",
-    productsTitle: "Precision instruments and accessories",
-    products: [
-      ["Digital Height Gauge", "High-accuracy gauges with SPC-ready output and granite base.", "Dimensional"],
-      ["Surface Roughness Tester", "Portable, shop-floor roughness measurement with profile export.", "Surface"],
-      ["Torque Wrench Calibrator", "Bench-top calibration system with traceable load cells.", "Torque"],
-    ],
-    viewAll: "View All Products",
     clientsEyebrow: "Who We Work With",
     clientsTitle: "Trusted by Public Infrastructure, Defence, and Enterprise Teams",
     clientsAction: "View All Clients",
@@ -110,14 +103,6 @@ const content = {
       { name: "Lavori Civili", description: "Finiture strutturali, rough-ins MEP, lavori di fondazione e modifiche specifiche del sito. Esecuzione allineata alle specifiche architettoniche e ai requisiti sui permessi." },
       { name: "CCTV e Sorveglianza", description: "Sistemi integrati di videosorveglianza, controllo accessi e monitoraggio per la sicurezza perimetrale e dell'intera struttura. Installazione e integrazione in siti governativi e difensive." },
     ],
-    productsEyebrow: "Prodotti",
-    productsTitle: "Strumenti e accessori di precisione",
-    products: [
-      ["Altimetro digitale", "Strumento ad alta precisione con uscita SPC e base in granito.", "Dimensionale"],
-      ["Tester di rugosita superficiale", "Misura portatile della rugosita con esportazione del profilo.", "Superficie"],
-      ["Calibratore per chiavi dinamometriche", "Sistema da banco con celle di carico tracciabili.", "Coppia"],
-    ],
-    viewAll: "Vedi tutti i prodotti",
     clientsEyebrow: "Clienti",
     clientsTitle: "Scelti dai leader della qualita",
     quotes: [
@@ -149,16 +134,8 @@ const content = {
       { name: "Electricidad", description: "Distribucion electrica, sistemas de iluminacion, respaldos de emergencia e instalacion de equipos de maniobra para instalaciones gubernamentales, de defensa y empresariales. Ejecucion conforme a CPWD y DMRC." },
       { name: "Sistemas de Seguridad contra Incendios", description: "Sistemas de deteccion, supresion y evacuacion contra incendios diseñados segun normas BIS/IS y NFPA. Puesta en marcha y cumplimiento normativo para sitios de alta ocupacion e infraestructuras criticas." },
       { name: "Trabajos Civiles", description: "Acabados estructurales, roughins MEP, trabajos de cimentacion y modificaciones especificas del sitio. Ejecucion alineada con especificaciones arquitectonicas y requisitos de permisos." },
-      { name: "CCTV y Vigilancia", description: "Sistemas integrados de videovigilancia, control de acceso y monitoreo para seguridad perimetral e instalaciones completas. Instalacion e integracion en sitios gubernamentales y de defensa." },
+      { name: "CCTV y Vigilancia", description: "Sistemas integrados de videovigilancia, control de acceso y monitoreo para seguridad perimetral e instalaciones completas. Instalacion e integracion en sitios gubernativos y de defensa." },
     ],
-    productsEyebrow: "Productos",
-    productsTitle: "Instrumentos y accesorios de precision",
-    products: [
-      ["Calibrador de altura digital", "Equipo de alta precision con salida SPC y base de granito.", "Dimensional"],
-      ["Probador de rugosidad superficial", "Medicion portatil de rugosidad con exportacion de perfil.", "Superficie"],
-      ["Calibrador de llave dinamometrica", "Sistema de banco con celdas de carga trazables.", "Torque"],
-    ],
-    viewAll: "Ver todos los productos",
     clientsEyebrow: "Clientes",
     clientsTitle: "Con la confianza de lideres de calidad",
     quotes: [
@@ -192,14 +169,6 @@ const content = {
       { name: "Tiefbau", description: "Strukturelle Oberflaechenbehandlung, MEP-Rohinstallation, Fundierungsarbeiten und spezifische Standortmodifikationen. Ausfuehrung gemaess Architekturvorgaben und Genehmigungsanforderungen." },
       { name: "CCTV und Ueberwachung", description: "Integrierte Videoueberwachungs-, Zugangsschutz- und Ueberwachungssysteme fuer Umkreis- und anlagenbereite Sicherheit. Installation und Integration auf Regierungs- und Verteidigungsstandorten." },
     ],
-    productsEyebrow: "Produkte",
-    productsTitle: "Prazisionsinstrumente und Zubehor",
-    products: [
-      ["Digitales Hohenmessgerat", "Hochgenaues Gerat mit SPC-Ausgang und Granitbasis.", "Dimensional"],
-      ["Oberflachenrauheitsprufer", "Tragbares Rauheitsmessgerat mit Profilexport.", "Oberflache"],
-      ["Drehmomentschlussel-Kalibrator", "Tischsystem mit ruckverfolgbaren Lastzellen.", "Drehmoment"],
-    ],
-    viewAll: "Alle Produkte ansehen",
     clientsEyebrow: "Kunden",
     clientsTitle: "Vertrauen von Qualitatsfuhrern",
     quotes: [
@@ -248,10 +217,15 @@ const Home = () => {
       </section>
 
       <section className="section services">
-        <div className="section-heading">
-          <p className="eyebrow">{copy.servicesEyebrow}</p>
-          <h2>{copy.servicesTitle}</h2>
-          <p>{copy.servicesCopy}</p>
+        <div className="section-heading section-heading-with-action">
+          <div>
+            <p className="eyebrow">{copy.servicesEyebrow}</p>
+            <h2>{copy.servicesTitle}</h2>
+            <p>{copy.servicesCopy}</p>
+          </div>
+          <NavLink className="btn btn-primary" to="/services">
+            {copy.servicesAction || "View"}
+          </NavLink>
         </div>
         <div className="services-grid-home">
           {copy.services.map((service) => (

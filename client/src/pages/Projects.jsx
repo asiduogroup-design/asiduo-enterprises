@@ -1,213 +1,131 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import AnimatedHeadline from "../components/AnimatedHeadline.jsx";
-import { useLanguage } from "../context/LanguageContext.jsx";
 import api from "../services/api.js";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 const FILTERS = ["All", "Electrical", "Fire Safety", "Civil", "HVAC/AC", "Petroleum"];
 
-const staticProjects = [
-  {
-    id: 1,
-    title: "Upgradation of Bunglow No. 26, Lodhi Estate — Electrical Wiring, Cabling & Post Top Lights",
-    client: "CPWD, DED-11",
-    location: "New Delhi",
-    value: "₹16.71L",
-    tags: ["Electrical"],
+const copyByLanguage = {
+  "English (USA)": {
+    eyebrow: "Completed Works",
+    title: "Project Portfolio",
+    intro:
+      "Government and defence projects executed across electrical, fire safety, civil, HVAC, and petroleum sectors.",
+    stats: {
+      totalValue: "Total Project Value",
+      projectsCompleted: "Projects Completed",
+      clientOrganizations: "Client Organisations",
+      coverage: "Coverage",
+      coverageValue: "Pan India",
+    },
+    clientsLine:
+      "CPWD · UPSC · IAF Hindan · MeitY · Survey of India · JLN Stadium · South Block · BPCL · PMM&L · NMRC · DMRC",
+    filterLabels: {
+      All: "All",
+      Electrical: "Electrical",
+      "Fire Safety": "Fire Safety",
+      Civil: "Civil",
+      "HVAC/AC": "HVAC/AC",
+      Petroleum: "Petroleum",
+    },
+    loading: "Loading projects...",
+    empty: "No projects found for this filter.",
+    ctaTitle: "Ready to work with us on your next project?",
+    ctaCopy:
+      "With proven delivery across government, defence, and petroleum sectors, get in touch to discuss your scope and timeline.",
+    ctaButton: "Request a Quote",
   },
-  {
-    id: 2,
-    title: "Upgradation of Bunglow No. 26, Lodhi Estate (Tenure Pool Bunglow of SCI) — SITC of Ceiling Fans",
-    client: "CPWD, DED-11",
-    location: "New Delhi",
-    value: "₹88K",
-    tags: ["Electrical"],
+  "English (India)": null,
+  Italian: {
+    eyebrow: "Lavori Completati",
+    title: "Portfolio Progetti",
+    intro:
+      "Progetti governativi e difensivi eseguiti nei settori elettrico, antincendio, civile, HVAC e petrolifero.",
+    stats: {
+      totalValue: "Valore Totale Progetti",
+      projectsCompleted: "Progetti Completati",
+      clientOrganizations: "Organizzazioni Clienti",
+      coverage: "Copertura",
+      coverageValue: "Pan India",
+    },
+    clientsLine:
+      "CPWD · UPSC · IAF Hindan · MeitY · Survey of India · JLN Stadium · South Block · BPCL · PMM&L · NMRC · DMRC",
+    filterLabels: {
+      All: "Tutti",
+      Electrical: "Elettrico",
+      "Fire Safety": "Sicurezza Antincendio",
+      Civil: "Civile",
+      "HVAC/AC": "HVAC/AC",
+      Petroleum: "Petrolio",
+    },
+    loading: "Caricamento progetti...",
+    empty: "Nessun progetto trovato per questo filtro.",
+    ctaTitle: "Pronto a lavorare con noi sul tuo prossimo progetto?",
+    ctaCopy:
+      "Con consegne comprovate nei settori governativo, difesa e petrolio, contattaci per discutere scope e tempistiche.",
+    ctaButton: "Richiedi un Preventivo",
   },
-  {
-    id: 3,
-    title: "Maintenance of E&M Services, IG Stadium — Replacement / Re-routing / Shifting of Sprinkler & Hydrant Lines (NBCC New Hostel Site)",
-    client: "CPWD",
-    location: "New Delhi",
-    value: "₹15.70L",
-    tags: ["Fire Safety"],
+  Spanish: {
+    eyebrow: "Trabajos Completados",
+    title: "Portafolio de Proyectos",
+    intro:
+      "Proyectos gubernamentales y de defensa ejecutados en sectores electrico, contra incendios, civil, HVAC y petroleo.",
+    stats: {
+      totalValue: "Valor Total de Proyectos",
+      projectsCompleted: "Proyectos Completados",
+      clientOrganizations: "Organizaciones Cliente",
+      coverage: "Cobertura",
+      coverageValue: "Pan India",
+    },
+    clientsLine:
+      "CPWD · UPSC · IAF Hindan · MeitY · Survey of India · JLN Stadium · South Block · BPCL · PMM&L · NMRC · DMRC",
+    filterLabels: {
+      All: "Todos",
+      Electrical: "Electrico",
+      "Fire Safety": "Seguridad Contra Incendios",
+      Civil: "Civil",
+      "HVAC/AC": "HVAC/AC",
+      Petroleum: "Petroleo",
+    },
+    loading: "Cargando proyectos...",
+    empty: "No se encontraron proyectos para este filtro.",
+    ctaTitle: "Listo para trabajar con nosotros en su proximo proyecto?",
+    ctaCopy:
+      "Con entrega comprobada en gobierno, defensa y petroleo, contactenos para revisar su alcance y cronograma.",
+    ctaButton: "Solicitar Cotizacion",
   },
-  {
-    id: 4,
-    title: "Providing & Fixing Split Type AC Units (1.5 TR) in Various Rooms — New Guest House, Ayog Sachivalaya Building",
-    client: "UPSC",
-    location: "New Delhi",
-    value: "₹4.06L",
-    tags: ["HVAC/AC"],
+  German: {
+    eyebrow: "Abgeschlossene Arbeiten",
+    title: "Projektportfolio",
+    intro:
+      "Regierungs- und Verteidigungsprojekte in den Bereichen Elektrik, Brandschutz, Tiefbau, HVAC und Petroleum.",
+    stats: {
+      totalValue: "Gesamtprojektwert",
+      projectsCompleted: "Abgeschlossene Projekte",
+      clientOrganizations: "Kundenorganisationen",
+      coverage: "Abdeckung",
+      coverageValue: "Pan India",
+    },
+    clientsLine:
+      "CPWD · UPSC · IAF Hindan · MeitY · Survey of India · JLN Stadium · South Block · BPCL · PMM&L · NMRC · DMRC",
+    filterLabels: {
+      All: "Alle",
+      Electrical: "Elektrik",
+      "Fire Safety": "Brandschutz",
+      Civil: "Tiefbau",
+      "HVAC/AC": "HVAC/AC",
+      Petroleum: "Petroleum",
+    },
+    loading: "Projekte werden geladen...",
+    empty: "Keine Projekte fur diesen Filter gefunden.",
+    ctaTitle: "Bereit, mit uns am nachsten Projekt zu arbeiten?",
+    ctaCopy:
+      "Mit nachgewiesener Umsetzung in Regierung, Verteidigung und Petroleum kontaktieren Sie uns fur Umfang und Zeitplan.",
+    ctaButton: "Angebot Anfordern",
   },
-  {
-    id: 5,
-    title: "Providing & Fixing Split Type AC Units (1.5 TR) in Various Rooms — Ayog Sachivalaya Building Guest House",
-    client: "UPSC",
-    location: "New Delhi",
-    value: "₹2.24L",
-    tags: ["HVAC/AC"],
-  },
-  {
-    id: 6,
-    title: "MOEI & Fans incl. Street Lights, CPWD Office Dehradun — SITC of AC & Electrical Works",
-    client: "CPWD",
-    location: "Dehradun",
-    value: "₹4.5L",
-    tags: ["Electrical", "HVAC/AC"],
-  },
-  {
-    id: 7,
-    title: "E&M Services at HAF GZB — Urgent Replacement of Faulty Cable of Fire System at BP No. 10, WSA",
-    client: "Indian Air Force Station, Hindan",
-    location: "Ghaziabad",
-    value: "₹4.75L",
-    tags: ["Fire Safety", "Electrical"],
-  },
-  {
-    id: 8,
-    title: "Provision of Water Saving Taps in MD Accommodation",
-    client: "Indian Air Force Station, Hindan",
-    location: "Ghaziabad",
-    value: "₹7.75L",
-    tags: ["Civil"],
-  },
-  {
-    id: 9,
-    title: "O&M of Indira Paryawaran Bhawan, Jor Bagh — Supply & Replacement of Hand Dryers, LED Bollards & LED Step Lights",
-    client: "Indira Paryawaran Bhawan",
-    location: "New Delhi",
-    value: "₹3.88L",
-    tags: ["Electrical"],
-  },
-  {
-    id: 10,
-    title: "RMO of E&M Services, MeitY Building CGO Complex — Replacement of Old Fire Fighting Panel in Pump Room",
-    client: "MeitY, CGO Complex",
-    location: "Lodhi Road, New Delhi",
-    value: "₹4.32L",
-    tags: ["Fire Safety"],
-  },
-  {
-    id: 11,
-    title: "MOEI & Fans in CPWD Office Building, Dehradun — Data Entry Operator Services, Electrical Division",
-    client: "CPWD",
-    location: "Dehradun",
-    value: "₹3.32L",
-    tags: ["Electrical"],
-  },
-  {
-    id: 12,
-    title: "Renovation of DSO Section at Survey of India, Hathibarkala — Cassette AC & Electrical Works, NGDC Building",
-    client: "Survey of India",
-    location: "Dehradun",
-    value: "₹9.71L",
-    tags: ["Electrical", "HVAC/AC"],
-  },
-  {
-    id: 13,
-    title: "MOEI & Fans in CPWD Office Building, Dehradun — Data Entry Operator Services, Electrical Division",
-    client: "CPWD",
-    location: "Dehradun",
-    value: "₹1.1L",
-    tags: ["Electrical"],
-  },
-  {
-    id: 14,
-    title: "MOEI & Fans in CPWD Office Building, Dehradun — Data Entry Operator Services, Electrical Division",
-    client: "CPWD",
-    location: "Dehradun",
-    value: "₹2.6L",
-    tags: ["Electrical"],
-  },
-  {
-    id: 15,
-    title: "A/R & M/O DAB at AFS Hindan, Ghaziabad — Plastering Work in Ceiling & Wall at SMQ Quarters",
-    client: "Indian Air Force Station, Hindan",
-    location: "Ghaziabad",
-    value: "₹9.8L",
-    tags: ["Civil"],
-  },
-  {
-    id: 16,
-    title: "RMO of E&M Services, NDTL Building at JLN Stadium — SITC of Hot & Cold Air Purifiers",
-    client: "JLN Stadium",
-    location: "New Delhi",
-    value: "₹1.4L",
-    tags: ["HVAC/AC"],
-  },
-  {
-    id: 17,
-    title: "MOEI & Fans at Andrewsganj — Automatic Monitoring, Control & Regulation of Water Supply via BMS",
-    client: "Andrewsganj",
-    location: "New Delhi",
-    value: "₹5.81L",
-    tags: ["Electrical"],
-  },
-  {
-    id: 18,
-    title: "ARMO of Atal Akshay Urja Bhawan, CGO Complex — Water Level Indicator in Existing Tank",
-    client: "CGO Complex",
-    location: "New Delhi",
-    value: "₹3.6L",
-    tags: ["Electrical", "Civil"],
-  },
-  {
-    id: 19,
-    title: "O&M of Substation Equipment incl. DG Sets, MOEI, Fire Fighting & UPS System at INCP South Block — New ACB Retrofitting",
-    client: "South Block",
-    location: "New Delhi",
-    value: "₹2.5L",
-    tags: ["Electrical", "Fire Safety"],
-  },
-  {
-    id: 20,
-    title: "SITC of Electrical 3-Phase Voltage Stabilizer 30 KVA at BPCL Petrol Pump — Deepal Auto, East Delhi",
-    client: "BPCL",
-    location: "East Delhi",
-    value: "₹1.10L",
-    tags: ["Electrical", "Petroleum"],
-  },
-  {
-    id: 21,
-    title: "MOEI & Fans in Division Office & Guest House, CPWD Satwari Jammu — Annual Maintenance of Electrical, DG Set & Pump Set",
-    client: "CPWD",
-    location: "Satwari, Jammu",
-    value: "₹19.5L",
-    tags: ["Electrical"],
-  },
-  {
-    id: 22,
-    title: "Setting up of AMF Panel & Replacement of Existing Weatherproof Socket Fittings at Ex. PM Bungalows",
-    client: "Ex. PM Bungalows",
-    location: "New Delhi",
-    value: "₹4.28L",
-    tags: ["Electrical"],
-  },
-  {
-    id: 23,
-    title: "SITC of Gas Suppression System at Reprography Area, Library Building",
-    client: "PMM&L",
-    location: "New Delhi",
-    value: "₹12L",
-    tags: ["Fire Safety"],
-  },
-  {
-    id: 24,
-    title: "Repair & Refilling of Existing Gas Suppression System at IHC Blocks",
-    client: "PMM&L",
-    location: "New Delhi",
-    value: "₹6L",
-    tags: ["Fire Safety"],
-  },
-  {
-    id: 25,
-    title: "RMO Inspection Vehicle Services, SD-III / DED-102 — Driver Services for CE/NDZ-1",
-    client: "CPWD, SD-III",
-    location: "New Delhi",
-    value: "₹1.7L",
-    tags: ["Electrical"],
-  },
-];
+};
+copyByLanguage["English (India)"] = copyByLanguage["English (USA)"];
 
 const TAG_COLOURS = {
   Electrical: { bg: "#e8f1fc", text: "#1f66a8" },
@@ -249,20 +167,24 @@ const ProjectCard = ({ project }) => (
 
 const Projects = () => {
   const { language } = useLanguage();
+  const copy = copyByLanguage[language] || copyByLanguage["English (USA)"];
   const [activeFilter, setActiveFilter] = useState("All");
-  const [projectsList, setProjectsList] = useState(staticProjects);
+  const [projectsList, setProjectsList] = useState([]);
+  const [loadingProjects, setLoadingProjects] = useState(true);
 
   useEffect(() => {
-    api
-      .get("/api/projects")
-      .then((res) => {
-        if (res.data && res.data.length > 0) {
-          setProjectsList(res.data);
-        }
-      })
-      .catch(() => {
-        // API unavailable — keep static data
-      });
+    const loadProjects = async () => {
+      try {
+        const res = await api.get("/api/projects");
+        setProjectsList(Array.isArray(res.data) ? res.data : []);
+      } catch {
+        setProjectsList([]);
+      } finally {
+        setLoadingProjects(false);
+      }
+    };
+
+    loadProjects();
   }, []);
 
   const filtered =
@@ -270,43 +192,41 @@ const Projects = () => {
       ? projectsList
       : projectsList.filter((p) => p.tags.includes(activeFilter));
 
+  const uniqueClients = new Set(projectsList.map((project) => project.client)).size;
+
   return (
     <main className="page">
       <section className="page-hero projects-hero">
-        <p className="eyebrow">Completed Works</p>
+        <p className="eyebrow">{copy.eyebrow}</p>
         <AnimatedHeadline
-          text="Project Portfolio"
+          text={copy.title}
           variant="swing-up"
           staggerMs={20}
           durationMs={760}
         />
-        <p>
-          25+ government and defence projects executed across electrical, fire safety, civil, HVAC, and petroleum sectors. Total value: ₹1.87 Cr+
-        </p>
+        <p>{copy.intro}</p>
       </section>
 
       <section className="section projects-stats">
         <div className="projects-stats-grid">
           <div className="projects-stat">
             <span className="projects-stat-number">₹1.87 Cr+</span>
-            <span className="projects-stat-label">Total Project Value</span>
+            <span className="projects-stat-label">{copy.stats.totalValue}</span>
           </div>
           <div className="projects-stat">
-            <span className="projects-stat-number">25+</span>
-            <span className="projects-stat-label">Projects Completed</span>
+            <span className="projects-stat-number">{projectsList.length}+</span>
+            <span className="projects-stat-label">{copy.stats.projectsCompleted}</span>
           </div>
           <div className="projects-stat">
-            <span className="projects-stat-number">10+</span>
-            <span className="projects-stat-label">Client Organisations</span>
+            <span className="projects-stat-number">{uniqueClients}+</span>
+            <span className="projects-stat-label">{copy.stats.clientOrganizations}</span>
           </div>
           <div className="projects-stat">
-            <span className="projects-stat-number">Pan India</span>
-            <span className="projects-stat-label">Coverage</span>
+            <span className="projects-stat-number">{copy.stats.coverageValue}</span>
+            <span className="projects-stat-label">{copy.stats.coverage}</span>
           </div>
         </div>
-        <p className="projects-clients-line">
-          CPWD · UPSC · IAF Hindan · MeitY · Survey of India · JLN Stadium · South Block · BPCL · PMM&L · NMRC · DMRC
-        </p>
+        <p className="projects-clients-line">{copy.clientsLine}</p>
       </section>
 
       <section className="section projects-section">
@@ -318,7 +238,7 @@ const Projects = () => {
               className={`projects-filter-btn${activeFilter === f ? " active" : ""}`}
               onClick={() => setActiveFilter(f)}
             >
-              {f}
+                {copy.filterLabels[f] || f}
               {f !== "All" && (
                 <span className="projects-filter-count">
                   {projectsList.filter((p) => p.tags.includes(f)).length}
@@ -328,8 +248,10 @@ const Projects = () => {
           ))}
         </div>
 
-        {filtered.length === 0 ? (
-          <p className="projects-empty">No projects found for this filter.</p>
+        {loadingProjects ? (
+          <p className="projects-empty">{copy.loading}</p>
+        ) : filtered.length === 0 ? (
+          <p className="projects-empty">{copy.empty}</p>
         ) : (
           <div className="projects-grid">
             {filtered.map((project) => (
@@ -341,13 +263,11 @@ const Projects = () => {
 
       <section className="section projects-cta">
         <div>
-          <h2>Ready to work with us on your next project?</h2>
-          <p>
-            With proven delivery across government, defence, and petroleum sectors — get in touch to discuss your scope and timeline.
-          </p>
+          <h2>{copy.ctaTitle}</h2>
+          <p>{copy.ctaCopy}</p>
         </div>
         <NavLink className="btn btn-primary" to="/contact">
-          Request a Quote
+          {copy.ctaButton}
         </NavLink>
       </section>
     </main>

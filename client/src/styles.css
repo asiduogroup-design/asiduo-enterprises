@@ -358,12 +358,6 @@ a {
   background: #f3f6fa;
 }
 
-.products-search-status {
-  margin-top: 14px;
-  font-weight: 600;
-  color: var(--nav-accent);
-}
-
 .empty-state {
   max-width: 420px;
   margin: 0 auto;
@@ -1564,6 +1558,24 @@ a {
   margin-bottom: 30px;
 }
 
+.section-heading-with-action {
+  max-width: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.section-heading-with-action > div {
+  max-width: 920px;
+}
+
+.section-heading-with-action .btn {
+  margin-top: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1577,64 +1589,6 @@ a {
   border: 1px solid var(--border);
   display: grid;
   gap: 10px;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.product-card {
-  background: var(--card);
-  padding: 22px;
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  display: grid;
-  gap: 10px;
-}
-
-.product-image-wrap {
-  border-radius: 18px;
-  overflow: hidden;
-  aspect-ratio: 16 / 10;
-  border: 1px solid rgba(15, 29, 27, 0.08);
-  background: #eef5fb;
-}
-
-.product-image {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-}
-
-.product-image-fallback {
-  aspect-ratio: 16 / 10;
-  border-radius: 18px;
-  border: 1px solid rgba(15, 29, 27, 0.08);
-  background:
-    radial-gradient(circle at top right, rgba(31, 136, 201, 0.22), transparent 38%),
-    linear-gradient(135deg, rgba(212, 106, 52, 0.12), rgba(255, 255, 255, 0.95));
-  display: grid;
-  place-items: center;
-  color: #1f88c9;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 18px;
-}
-
-.product-tag {
-  align-self: start;
-  width: fit-content;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-  background: #eef5fb;
-  color: var(--nav-accent);
-  font-weight: 600;
 }
 
 .section-actions {
@@ -3023,7 +2977,6 @@ textarea {
 .onsite-card,
 .about-card,
 .service-card,
-.product-card,
 .capability-card,
 .cert-card,
 .contact-card,
@@ -3065,7 +3018,6 @@ textarea {
 .onsite-card::before,
 .about-card::before,
 .service-card::before,
-.product-card::before,
 .capability-card::before,
 .cert-card::before,
 .contact-card::before,
@@ -3091,7 +3043,6 @@ textarea {
 .onsite-card::after,
 .about-card::after,
 .service-card::after,
-.product-card::after,
 .capability-card::after,
 .cert-card::after,
 .contact-card::after,
@@ -3120,7 +3071,6 @@ textarea {
 .onsite-card:hover,
 .about-card:hover,
 .service-card:hover,
-.product-card:hover,
 .capability-card:hover,
 .cert-card:hover,
 .contact-card:hover,
@@ -3142,7 +3092,6 @@ textarea {
 .onsite-card:hover::after,
 .about-card:hover::after,
 .service-card:hover::after,
-.product-card:hover::after,
 .capability-card:hover::after,
 .cert-card:hover::after,
 .contact-card:hover::after,
@@ -3441,10 +3390,30 @@ textarea {
   flex-wrap: wrap;
 }
 
-.admin-products {
+.admin-projects {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: 1fr;
   gap: 22px;
+}
+
+.admin-projects-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-project-counts {
+  margin: 8px 0 10px;
+}
+
+.admin-project-counts .projects-filter-btn {
+  cursor: pointer;
+}
+
+.admin-project-form-card {
+  max-width: 760px;
 }
 
 .admin-table {
@@ -3687,7 +3656,6 @@ textarea {
   .card-grid,
   .cert-grid,
   .testimonial-grid,
-  .product-grid,
   .career-grid,
   .trust-grid,
   .why-work-grid,
@@ -3860,6 +3828,15 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .section-heading-with-action {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section-heading-with-action .btn {
+    margin-top: 8px;
+  }
+
   .service-list {
     grid-template-columns: 1fr;
   }
@@ -3891,7 +3868,6 @@ textarea {
   .card-grid,
   .cert-grid,
   .testimonial-grid,
-  .product-grid,
   .contact-form .grid {
     grid-template-columns: 1fr;
   }
@@ -4041,7 +4017,7 @@ textarea {
     margin-left: auto;
   }
 
-  .admin-products {
+  .admin-projects {
     grid-template-columns: 1fr;
   }
 

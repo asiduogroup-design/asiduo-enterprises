@@ -29,6 +29,7 @@ const copyByLanguage = {
     ctaTitle: "Ready to work with us?",
     ctaCopy: "Contact our team to discuss your project scope, timeline, and compliance requirements.",
     ctaButton: "Schedule a Consultation",
+    learnMore: "Learn More",
   },
   "English (India)": null,
   Italian: {
@@ -56,6 +57,7 @@ const copyByLanguage = {
     ctaTitle: "Pronto a lavorare con noi?",
     ctaCopy: "Contatta il nostro team per discutere l'ambito del tuo progetto, la tempistica e i requisiti di conformita.",
     ctaButton: "Pianifica una Consulenza",
+    learnMore: "Scopri di Piu",
   },
   Spanish: {
     eyebrow: "Que Entregamos",
@@ -82,6 +84,7 @@ const copyByLanguage = {
     ctaTitle: "Listo para trabajar con nosotros?",
     ctaCopy: "Contacta a nuestro equipo para discutir el alcance de tu proyecto, cronograma y requisitos de cumplimiento.",
     ctaButton: "Programar una Consulta",
+    learnMore: "Ver Mas",
   },
   German: {
     eyebrow: "Was Wir Leisten",
@@ -108,6 +111,7 @@ const copyByLanguage = {
     ctaTitle: "Bereit, mit uns zu arbeiten?",
     ctaCopy: "Kontaktiere unser Team, um dein Projektumfang, Zeitplan und Konformitaetsanforderungen zu besprechen.",
     ctaButton: "Termin Vereinbaren",
+    learnMore: "Mehr Erfahren",
   },
 };
 copyByLanguage["English (India)"] = copyByLanguage["English (USA)"];
@@ -138,7 +142,7 @@ const Services = () => {
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
                 <NavLink className="service-card-button" to={`/services/${slug}`}>
-                  Learn More →
+                  {copy.learnMore} →
                 </NavLink>
               </article>
             );

@@ -21,6 +21,10 @@ const copyByLanguage = {
     stayTitle: "Want to stay updated?",
     stayCopy: "Subscribe to our newsletter to receive updates directly in your inbox.",
     button: "Subscribe Now",
+    eventPhoto: "Event photo",
+    eventDate: "Mar 8, 2026",
+    eventTime: "3:30 PM",
+    eventLocation: "Asiduo Enterprises",
   },
   "English (India)": null,
   Italian: {
@@ -36,6 +40,10 @@ const copyByLanguage = {
     stayTitle: "Vuoi restare aggiornato?",
     stayCopy: "Iscriviti alla newsletter per ricevere aggiornamenti direttamente nella tua casella di posta.",
     button: "Iscriviti ora",
+    eventPhoto: "Foto evento",
+    eventDate: "8 Mar 2026",
+    eventTime: "15:30",
+    eventLocation: "Asiduo Enterprises",
   },
   Spanish: {
     eyebrow: "Noticias",
@@ -50,6 +58,10 @@ const copyByLanguage = {
     stayTitle: "Quiere mantenerse actualizado?",
     stayCopy: "Suscribase a nuestro boletin para recibir actualizaciones directamente en su correo.",
     button: "Suscribirse ahora",
+    eventPhoto: "Foto del evento",
+    eventDate: "8 Mar 2026",
+    eventTime: "3:30 PM",
+    eventLocation: "Asiduo Enterprises",
   },
   German: {
     eyebrow: "Neuigkeiten",
@@ -64,6 +76,10 @@ const copyByLanguage = {
     stayTitle: "Mochten Sie informiert bleiben?",
     stayCopy: "Abonnieren Sie unseren Newsletter, um Updates direkt in Ihr Postfach zu erhalten.",
     button: "Jetzt abonnieren",
+    eventPhoto: "Eventfoto",
+    eventDate: "8. Mar 2026",
+    eventTime: "15:30",
+    eventLocation: "Asiduo Enterprises",
   },
 };
 copyByLanguage["English (India)"] = copyByLanguage["English (USA)"];
@@ -94,20 +110,20 @@ const News = () => {
       </section>
 
       <section className="section news-feature">
-        <div className="news-image">Event photo</div>
+        <div className="news-image">{copy.eventPhoto}</div>
         <div className="news-card">
           <span className="news-tag">{copy.tag}</span>
           <h3>{copy.featureTitle}</h3>
           <p>{copy.featureCopy}</p>
           <div className="news-meta">
             <span>
-              <HiOutlineCalendarDays /> Mar 8, 2026
+              <HiOutlineCalendarDays /> {copy.eventDate}
             </span>
             <span>
-              <HiOutlineClock /> 3:30 PM
+              <HiOutlineClock /> {copy.eventTime}
             </span>
             <span>
-              <HiOutlineMapPin /> Asiduo Enterprises
+              <HiOutlineMapPin /> {copy.eventLocation}
             </span>
           </div>
         </div>

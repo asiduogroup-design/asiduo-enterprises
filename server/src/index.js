@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import connectDb from "./config/db.js";
 import contactRouter from "./routes/contact.js";
 import authRouter from "./routes/auth.js";
-import productsRouter from "./routes/products.js";
 import enquiriesRouter from "./routes/enquiries.js";
 import projectsRouter from "./routes/projects.js";
 
@@ -23,7 +22,6 @@ app.get("/health", (req, res) => {
 
 app.use("/api/contact", contactRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/products", productsRouter);
 app.use("/api/enquiries", enquiriesRouter);
 app.use("/api/projects", projectsRouter);
 
@@ -34,13 +32,30 @@ app.use((err, req, res, next) => {
   });
 });
 
-const port = process.env.PORT || 5000;
+const basePort = Number(process.env.PORT) || 5000;
+const maxPortAttempts = 10;
+
+const startServer = (port, attempts = 0) => {
+  const server = app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+
+  server.on("error", (err) => {
+    if (err.code === "EADDRINUSE" && attempts < maxPortAttempts - 1) {
+      const nextPort = port + 1;
+      console.warn(`Port ${port} is in use. Retrying on ${nextPort}...`);
+      startServer(nextPort, attempts + 1);
+      return;
+    }
+
+    console.error("Server failed to start:", err.message);
+    process.exit(1);
+  });
+};
 
 connectDb()
   .then(() => {
-    app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
-    });
+    startServer(basePort);
   })
   .catch((err) => {
     console.error("DB connection failed:", err.message);

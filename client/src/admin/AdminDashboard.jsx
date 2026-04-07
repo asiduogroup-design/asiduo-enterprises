@@ -16,6 +16,8 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const [enquiries, setEnquiries] = useState([]);
   const [projectsList, setProjectsList] = useState([]);
+  const [showProjectForm, setShowProjectForm] = useState(false);
+  const [activeProjectFilter, setActiveProjectFilter] = useState("All");
   const [projectForm, setProjectForm] = useState(emptyProject);
   const [projectStatus, setProjectStatus] = useState({ type: "", message: "" });
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -73,6 +75,7 @@ const AdminDashboard = () => {
       }
       setProjectForm(emptyProject);
       setEditingProjectId(null);
+      setShowProjectForm(false);
       loadData();
     } catch (err) {
       setProjectStatus({
@@ -103,12 +106,32 @@ const AdminDashboard = () => {
       value: item.value || "",
       tags: item.tags || [],
     });
+    setShowProjectForm(true);
     setActiveTab("projects");
   };
 
   const cancelEditProject = () => {
     setEditingProjectId(null);
     setProjectForm(emptyProject);
+    setProjectStatus({ type: "", message: "" });
+    setShowProjectForm(false);
+  };
+
+  const openProjectsList = () => {
+    setActiveTab("projects");
+    setEditingProjectId(null);
+    setProjectForm(emptyProject);
+    setProjectStatus({ type: "", message: "" });
+    setShowProjectForm(false);
+    setActiveProjectFilter("All");
+  };
+
+  const openProjectForm = () => {
+    setActiveTab("projects");
+    setEditingProjectId(null);
+    setProjectForm(emptyProject);
+    setProjectStatus({ type: "", message: "" });
+    setShowProjectForm(true);
   };
 
   // ── Common ────────────────────────────────────────────────────
@@ -127,6 +150,21 @@ const AdminDashboard = () => {
     [projectsList, enquiries]
   );
 
+  const projectTagCounts = useMemo(() => {
+    const counts = { All: projectsList.length };
+    TAGS.forEach((tag) => {
+      counts[tag] = projectsList.filter((item) => (item.tags || []).includes(tag)).length;
+    });
+    return counts;
+  }, [projectsList]);
+
+  const filteredProjects = useMemo(() => {
+    if (activeProjectFilter === "All") {
+      return projectsList;
+    }
+    return projectsList.filter((item) => (item.tags || []).includes(activeProjectFilter));
+  }, [projectsList, activeProjectFilter]);
+
   return (
     <main className="admin-shell">
       <aside className="admin-sidebar">
@@ -143,7 +181,7 @@ const AdminDashboard = () => {
           </button>
           <button
             className={activeTab === "projects" ? "active" : ""}
-            onClick={() => setActiveTab("projects")}
+            onClick={openProjectsList}
           >
             Projects
           </button>
@@ -172,7 +210,7 @@ const AdminDashboard = () => {
           <div className="admin-quick">
             <button
               className="btn btn-primary"
-              onClick={() => setActiveTab("projects")}
+              onClick={openProjectsList}
             >
               Manage Projects
             </button>
@@ -202,7 +240,7 @@ const AdminDashboard = () => {
                 <div className="admin-actions">
                   <button
                     className="btn btn-primary"
-                    onClick={() => setActiveTab("projects")}
+                    onClick={openProjectForm}
                   >
                     Add a project
                   </button>
@@ -234,117 +272,148 @@ const AdminDashboard = () => {
         )}
 
         {activeTab === "projects" && (
-          <div className="admin-products">
-            <div className="admin-card">
-              <h2>{editingProjectId ? "Edit Project" : "Add Project"}</h2>
-              <form className="admin-form" onSubmit={saveProject}>
-                <textarea
-                  name="title"
-                  placeholder="Project title (e.g. SITC of Electrical Works at South Block)"
-                  rows="3"
-                  value={projectForm.title}
-                  onChange={handleProjectChange}
-                  required
-                />
-                <input
-                  name="client"
-                  placeholder="Client / Organisation (e.g. CPWD, DED-11)"
-                  value={projectForm.client}
-                  onChange={handleProjectChange}
-                  required
-                />
-                <input
-                  name="location"
-                  placeholder="Location (e.g. New Delhi)"
-                  value={projectForm.location}
-                  onChange={handleProjectChange}
-                  required
-                />
-                <input
-                  name="value"
-                  placeholder="Contract value (e.g. ₹12L)"
-                  value={projectForm.value}
-                  onChange={handleProjectChange}
-                  required
-                />
-                <div className="admin-tag-group">
-                  <label className="admin-tag-label">Discipline Tags</label>
-                  <div className="admin-tags">
-                    {TAGS.map((tag) => (
-                      <button
-                        key={tag}
-                        type="button"
-                        className={`admin-tag-btn${projectForm.tags.includes(tag) ? " selected" : ""}`}
-                        onClick={() => handleTagToggle(tag)}
-                      >
-                        {tag}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                {projectStatus.message && (
-                  <p className={`status ${projectStatus.type}`}>{projectStatus.message}</p>
-                )}
-                <div className="admin-form-actions">
-                  <button className="btn btn-primary" type="submit">
-                    {editingProjectId ? "Update Project" : "Save Project"}
+          <div className="admin-projects">
+            {showProjectForm ? (
+              <div className="admin-card admin-project-form-card">
+                <div className="admin-projects-head">
+                  <h2>{editingProjectId ? "Edit Project" : "Add Project"}</h2>
+                  <button className="btn btn-ghost" type="button" onClick={openProjectsList}>
+                    Back to Projects
                   </button>
-                  {editingProjectId && (
+                </div>
+                <form className="admin-form" onSubmit={saveProject}>
+                  <textarea
+                    name="title"
+                    placeholder="Project title"
+                    rows="3"
+                    value={projectForm.title}
+                    onChange={handleProjectChange}
+                    required
+                  />
+                  <input
+                    name="client"
+                    placeholder="Client / Organisation"
+                    value={projectForm.client}
+                    onChange={handleProjectChange}
+                    required
+                  />
+                  <input
+                    name="location"
+                    placeholder="Location"
+                    value={projectForm.location}
+                    onChange={handleProjectChange}
+                    required
+                  />
+                  <input
+                    name="value"
+                    placeholder="Contract value"
+                    value={projectForm.value}
+                    onChange={handleProjectChange}
+                    required
+                  />
+                  <div className="admin-tag-group">
+                    <label className="admin-tag-label">Discipline Tags</label>
+                    <div className="admin-tags">
+                      {TAGS.map((tag) => (
+                        <button
+                          key={tag}
+                          type="button"
+                          className={`admin-tag-btn${projectForm.tags.includes(tag) ? " selected" : ""}`}
+                          onClick={() => handleTagToggle(tag)}
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  {projectStatus.message && (
+                    <p className={`status ${projectStatus.type}`}>{projectStatus.message}</p>
+                  )}
+                  <div className="admin-form-actions">
+                    <button className="btn btn-primary" type="submit">
+                      {editingProjectId ? "Update Project" : "Save Project"}
+                    </button>
                     <button
                       className="btn btn-ghost"
                       type="button"
-                      onClick={cancelEditProject}
+                      onClick={openProjectsList}
                     >
                       Cancel
                     </button>
+                  </div>
+                </form>
+              </div>
+            ) : (
+              <div className="admin-card">
+                <div className="admin-projects-head">
+                  <h2>Projects ({filteredProjects.length}/{projectsList.length})</h2>
+                  <button className="btn btn-primary" type="button" onClick={openProjectForm}>
+                    Add Project
+                  </button>
+                </div>
+                <div className="projects-filter-bar admin-project-counts" aria-label="Project tag counts">
+                  <button
+                    type="button"
+                    className={`projects-filter-btn${activeProjectFilter === "All" ? " active" : ""}`}
+                    onClick={() => setActiveProjectFilter("All")}
+                  >
+                    All
+                    <span className="projects-filter-count">{projectTagCounts.All}</span>
+                  </button>
+                  {TAGS.map((tag) => (
+                    <button
+                      key={tag}
+                      type="button"
+                      className={`projects-filter-btn${activeProjectFilter === tag ? " active" : ""}`}
+                      onClick={() => setActiveProjectFilter(tag)}
+                    >
+                      {tag}
+                      <span className="projects-filter-count">{projectTagCounts[tag]}</span>
+                    </button>
+                  ))}
+                </div>
+                <div className="admin-table">
+                  <div className="admin-table-row admin-table-head">
+                    <span>Title</span>
+                    <span>Client</span>
+                    <span>Value</span>
+                    <span>Tags</span>
+                    <span>Actions</span>
+                  </div>
+                  {filteredProjects.map((item) => (
+                    <div key={item._id} className="admin-table-row admin-table-row--project">
+                      <span className="admin-table-title">{item.title}</span>
+                      <span>{item.client}</span>
+                      <span className="admin-project-value">{item.value}</span>
+                      <div className="admin-project-tags">
+                        {(item.tags || []).map((tag) => (
+                          <span key={tag} className="admin-project-tag">{tag}</span>
+                        ))}
+                      </div>
+                      <div className="admin-table-actions">
+                        <button
+                          className="btn btn-ghost"
+                          onClick={() => startEditProject(item)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-ghost"
+                          onClick={() => deleteProject(item._id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                  {!filteredProjects.length && (
+                    <div className="admin-table-row empty">
+                      No projects found for this tag.
+                    </div>
                   )}
                 </div>
-              </form>
-            </div>
-
-            <div className="admin-card">
-              <h2>Projects ({projectsList.length})</h2>
-              <div className="admin-table">
-                <div className="admin-table-row admin-table-head">
-                  <span>Title</span>
-                  <span>Client</span>
-                  <span>Value</span>
-                  <span>Tags</span>
-                  <span>Actions</span>
-                </div>
-                {projectsList.map((item) => (
-                  <div key={item._id} className="admin-table-row admin-table-row--project">
-                    <span className="admin-table-title">{item.title}</span>
-                    <span>{item.client}</span>
-                    <span className="admin-project-value">{item.value}</span>
-                    <div className="admin-project-tags">
-                      {(item.tags || []).map((tag) => (
-                        <span key={tag} className="admin-project-tag">{tag}</span>
-                      ))}
-                    </div>
-                    <div className="admin-table-actions">
-                      <button
-                        className="btn btn-ghost"
-                        onClick={() => startEditProject(item)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn-ghost"
-                        onClick={() => deleteProject(item._id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                {!projectsList.length && (
-                  <div className="admin-table-row empty">
-                    No projects yet. Add one using the form above.
-                  </div>
-                )}
               </div>
-            </div>
+            )}
           </div>
         )}
 

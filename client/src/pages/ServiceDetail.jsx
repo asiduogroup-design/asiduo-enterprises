@@ -6,6 +6,9 @@ import { useLanguage } from "../context/LanguageContext.jsx";
 const copyByLanguage = {
   "English (USA)": {
     eyebrow: "What We Deliver",
+    notFound: "Service Not Found",
+    overview: "Overview",
+    deliverables: "What We Deliver",
     services: [
       {
         title: "Electrical",
@@ -81,6 +84,9 @@ const copyByLanguage = {
   "English (India)": null,
   Italian: {
     eyebrow: "Cosa Consegniamo",
+    notFound: "Servizio Non Trovato",
+    overview: "Panoramica",
+    deliverables: "Cosa Consegniamo",
     services: [
       {
         title: "Impianti Elettrici",
@@ -142,6 +148,9 @@ const copyByLanguage = {
   },
   Spanish: {
     eyebrow: "Que Entregamos",
+    notFound: "Servicio No Encontrado",
+    overview: "Resumen",
+    deliverables: "Que Entregamos",
     services: [
       {
         title: "Electricidad",
@@ -203,6 +212,9 @@ const copyByLanguage = {
   },
   German: {
     eyebrow: "Was Wir Leisten",
+    notFound: "Service Nicht Gefunden",
+    overview: "Uberblick",
+    deliverables: "Was Wir Leisten",
     services: [
       {
         title: "Elektrik",
@@ -279,7 +291,7 @@ const ServiceDetail = () => {
       <main className="page services-detail-page">
         <section className="page-hero services-hero">
           <p className="eyebrow">{copy.eyebrow}</p>
-          <h1>Service Not Found</h1>
+          <h1>{copy.notFound}</h1>
         </section>
       </main>
     );
@@ -297,13 +309,13 @@ const ServiceDetail = () => {
 
       <section className="section service-detail-content">
         <div className="service-full-details">
-          <h2>Overview</h2>
+          <h2>{copy.overview}</h2>
           <p>{service.fullDetails}</p>
         </div>
 
         {service.services && service.services.length > 0 && (
           <div className="service-deliverables">
-            <h2>What We Deliver</h2>
+            <h2>{copy.deliverables}</h2>
             <ul className="service-list">
               {service.services.map((item, index) => (
                 <li key={index}>{item}</li>

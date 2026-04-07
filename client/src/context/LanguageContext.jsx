@@ -4,7 +4,6 @@ const translations = {
   "English (USA)": {
     nav: {
       home: "Home",
-      products: "Products",
       metrology: "Metrology",
       clients: "Clients",
       services: "Services",
@@ -22,15 +21,14 @@ const translations = {
       logout: "Logout",
       contactUs: "Contact Us",
       selectLanguage: "Select language",
-      searchLabel: "Search products",
-      searchPlaceholder: "Search products",
+      searchLabel: "Search clients",
+      searchPlaceholder: "Search clients",
     },
     footer: {
       aboutUs: "About Us",
       aboutCopy:
         "Your trusted partner in precision since 1983. As leading manufacturers, importers, and distributors of metrology instruments, we are committed to delivering accuracy, innovation, and reliability for every industrial application.",
       quickLinks: "Quick Links",
-      products: "Products",
       services: "Services",
       clients: "Clients",
       careers: "Careers",
@@ -46,7 +44,6 @@ const translations = {
   "English (India)": {
     nav: {
       home: "Home",
-      products: "Products",
       metrology: "Metrology",
       clients: "Clients",
       services: "Services",
@@ -64,15 +61,14 @@ const translations = {
       logout: "Logout",
       contactUs: "Contact Us",
       selectLanguage: "Select language",
-      searchLabel: "Search products",
-      searchPlaceholder: "Search products",
+      searchLabel: "Search clients",
+      searchPlaceholder: "Search clients",
     },
     footer: {
       aboutUs: "About Us",
       aboutCopy:
         "Your trusted partner in precision since 1983. As leading manufacturers, importers, and distributors of metrology instruments, we are committed to delivering accuracy, innovation, and reliability for every industrial application.",
       quickLinks: "Quick Links",
-      products: "Products",
       services: "Services",
       clients: "Clients",
       careers: "Careers",
@@ -88,7 +84,6 @@ const translations = {
   Italian: {
     nav: {
       home: "Home",
-      products: "Prodotti",
       metrology: "Metrologia",
       clients: "Clienti",
       services: "Servizi",
@@ -106,15 +101,14 @@ const translations = {
       logout: "Esci",
       contactUs: "Contattaci",
       selectLanguage: "Seleziona lingua",
-      searchLabel: "Cerca prodotti",
-      searchPlaceholder: "Cerca prodotti",
+      searchLabel: "Cerca clienti",
+      searchPlaceholder: "Cerca clienti",
     },
     footer: {
       aboutUs: "Chi Siamo",
       aboutCopy:
         "Il tuo partner di fiducia nella precisione dal 1983. Come produttori, importatori e distributori di strumenti di metrologia, ci impegniamo a offrire accuratezza, innovazione e affidabilita per ogni applicazione industriale.",
       quickLinks: "Link Rapidi",
-      products: "Prodotti",
       services: "Servizi",
       clients: "Clienti",
       careers: "Carriere",
@@ -130,7 +124,6 @@ const translations = {
   Spanish: {
     nav: {
       home: "Inicio",
-      products: "Productos",
       metrology: "Metrologia",
       clients: "Clientes",
       services: "Servicios",
@@ -148,15 +141,14 @@ const translations = {
       logout: "Cerrar sesion",
       contactUs: "Contactanos",
       selectLanguage: "Seleccionar idioma",
-      searchLabel: "Buscar productos",
-      searchPlaceholder: "Buscar productos",
+      searchLabel: "Buscar clientes",
+      searchPlaceholder: "Buscar clientes",
     },
     footer: {
       aboutUs: "Sobre Nosotros",
       aboutCopy:
         "Su socio de confianza en precision desde 1983. Como fabricantes, importadores y distribuidores de instrumentos de metrologia, estamos comprometidos con ofrecer exactitud, innovacion y fiabilidad para cada aplicacion industrial.",
       quickLinks: "Enlaces Rapidos",
-      products: "Productos",
       services: "Servicios",
       clients: "Clientes",
       careers: "Carreras",
@@ -172,7 +164,6 @@ const translations = {
   German: {
     nav: {
       home: "Startseite",
-      products: "Produkte",
       metrology: "Metrologie",
       clients: "Kunden",
       services: "Dienstleistungen",
@@ -190,15 +181,14 @@ const translations = {
       logout: "Abmelden",
       contactUs: "Kontakt",
       selectLanguage: "Sprache wahlen",
-      searchLabel: "Produkte suchen",
-      searchPlaceholder: "Produkte suchen",
+      searchLabel: "Kunden suchen",
+      searchPlaceholder: "Kunden suchen",
     },
     footer: {
       aboutUs: "Uber Uns",
       aboutCopy:
         "Ihr zuverlassiger Partner fur Prazision seit 1983. Als Hersteller, Importeure und Vertriebspartner von Messinstrumenten stehen wir fur Genauigkeit, Innovation und Zuverlassigkeit in jeder industriellen Anwendung.",
       quickLinks: "Schnellzugriffe",
-      products: "Produkte",
       services: "Dienstleistungen",
       clients: "Kunden",
       careers: "Karriere",

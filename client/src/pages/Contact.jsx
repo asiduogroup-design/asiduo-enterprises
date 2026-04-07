@@ -28,9 +28,75 @@ const copyByLanguage = {
     mail: "Email Enquiry",
   },
   "English (India)": null,
-  Italian: null,
-  Spanish: null,
-  German: null,
+  Italian: {
+    eyebrow: "Contattaci",
+    title: "Parliamo del tuo progetto",
+    intro:
+      "Cerchi un appaltatore affidabile, conforme e multi-disciplinare? Condividi ambito, localita, tempistiche e requisiti normativi. Rispondiamo entro 24 ore.",
+    touchTitle: "Mettiti in contatto",
+    touchCopy:
+      "Usa il modulo per inviare la tua richiesta per supporto Elettrico, Antincendio, Civile, CCTV, HVAC o settore petrolifero.",
+    infoTitle: "Dettagli Aziendali",
+    phone: "Telefono",
+    email: "Email",
+    address: "Sede Base",
+    person: "Titolare",
+    extension: "Registrazione",
+    map: "Operazioni Pan India",
+    locateEyebrow: "Copertura Operativa",
+    locateTitle: "Operativi da Faridabad in tutta l'India",
+    ctaTitle: "Vuoi parlare direttamente con il team?",
+    ctaCopy:
+      "Contattaci per discussioni di gara, esecuzione conforme e coordinamento multi-disciplinare del progetto.",
+    call: "Chiama / WhatsApp",
+    mail: "Invia Email",
+  },
+  Spanish: {
+    eyebrow: "Contactenos",
+    title: "Hablemos de su proyecto",
+    intro:
+      "Busca un contratista confiable, cumplido y multidisciplinario? Comparta alcance, ubicacion, cronograma y requisitos normativos. Respondemos en 24 horas.",
+    touchTitle: "Ponerse en contacto",
+    touchCopy:
+      "Use el formulario para enviar su requerimiento de soporte Electrico, Contra Incendios, Civil, CCTV, HVAC o sector petroleo.",
+    infoTitle: "Detalles del Negocio",
+    phone: "Telefono",
+    email: "Correo",
+    address: "Ubicacion Base",
+    person: "Propietario",
+    extension: "Registro",
+    map: "Operaciones Pan India",
+    locateEyebrow: "Cobertura de Servicio",
+    locateTitle: "Operando desde Faridabad en toda India",
+    ctaTitle: "Necesita hablar directamente con el equipo?",
+    ctaCopy:
+      "Contactenos para discusiones de licitacion, ejecucion orientada a cumplimiento y coordinacion multidisciplinaria.",
+    call: "Llamar / WhatsApp",
+    mail: "Enviar Correo",
+  },
+  German: {
+    eyebrow: "Kontakt",
+    title: "Lassen Sie uns Ihr Projekt besprechen",
+    intro:
+      "Suchen Sie einen zuverlassigen, konformen und multidisziplinaren Auftragnehmer? Teilen Sie Umfang, Standort, Zeitplan und Compliance-Anforderungen. Wir antworten innerhalb von 24 Stunden.",
+    touchTitle: "Kontakt aufnehmen",
+    touchCopy:
+      "Nutzen Sie das Formular fur Anfragen zu Elektrik, Brandschutz, Tiefbau, CCTV, HVAC oder Petroleum-Projekten.",
+    infoTitle: "Unternehmensdetails",
+    phone: "Telefon",
+    email: "E-Mail",
+    address: "Standort",
+    person: "Inhaber",
+    extension: "Registrierung",
+    map: "Pan India Einsatze",
+    locateEyebrow: "Serviceabdeckung",
+    locateTitle: "Von Faridabad aus in ganz Indien aktiv",
+    ctaTitle: "Mochten Sie direkt mit dem Team sprechen?",
+    ctaCopy:
+      "Kontaktieren Sie uns fur Angebotsgesprache, compliance-orientierte Ausfuhrung und multidisziplinare Projektkoordination.",
+    call: "Anrufen / WhatsApp",
+    mail: "E-Mail Anfrage",
+  },
 };
 copyByLanguage["English (India)"] = copyByLanguage["English (USA)"];
 copyByLanguage.Italian = copyByLanguage["English (USA)"];
