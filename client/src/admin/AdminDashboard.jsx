@@ -373,7 +373,7 @@ const AdminDashboard = () => {
                   ))}
                 </div>
                 <div className="admin-table">
-                  <div className="admin-table-row admin-table-head">
+                  <div className="admin-table-row admin-table-head admin-table-row--project">
                     <span>Title</span>
                     <span>Client</span>
                     <span>Value</span>
@@ -407,7 +407,7 @@ const AdminDashboard = () => {
                     </div>
                   ))}
                   {!filteredProjects.length && (
-                    <div className="admin-table-row empty">
+                    <div className="admin-table-row admin-table-row--project empty">
                       No projects found for this tag.
                     </div>
                   )}
