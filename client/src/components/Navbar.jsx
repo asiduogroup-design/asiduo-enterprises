@@ -20,6 +20,7 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     Boolean(localStorage.getItem("admin_token"))
   );
+  const [mobileOpen, setMobileOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
   const searchInputRef = useRef(null);
 
@@ -109,6 +110,16 @@ const Navbar = () => {
     setOpen(false);
     navigate("/");
   };
+
+  const handleMobileToggle = () => setMobileOpen((p) => !p);
+  const handleMobileClose = () => setMobileOpen(false);
+  const languageOptions = [
+    "English (USA)",
+    "English (India)",
+    "Italian",
+    "Spanish",
+    "German",
+  ];
 
   return (
     <header className={`nav${hasScrolled ? " nav-scrolled" : ""}`}>
@@ -272,10 +283,75 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        <NavLink className="btn btn-primary" to="/contact">
+        <button
+          className="nav-hamburger"
+          type="button"
+          onClick={handleMobileToggle}
+          aria-label="Toggle navigation"
+          aria-expanded={mobileOpen}
+          aria-controls="nav-mobile-drawer"
+        >
+          {mobileOpen ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              <line x1="4" y1="7" x2="20" y2="7" />
+              <line x1="4" y1="12" x2="20" y2="12" />
+              <line x1="4" y1="17" x2="20" y2="17" />
+            </svg>
+          )}
+        </button>
+        <NavLink className="btn btn-primary nav-desktop-cta" to="/contact">
           {t.nav.contactUs}
         </NavLink>
       </div>
+      {mobileOpen && (
+        <>
+          <div
+            className="nav-mobile-backdrop"
+            onClick={handleMobileClose}
+            aria-hidden="true"
+          />
+          <nav
+            id="nav-mobile-drawer"
+            className="nav-mobile-drawer"
+            aria-label="Mobile navigation"
+          >
+            <NavLink to="/" end className={({ isActive }) => `nav-mobile-link${isActive ? " active" : ""}`} onClick={handleMobileClose}>{t.nav.home}</NavLink>
+            <NavLink to="/clients" className={({ isActive }) => `nav-mobile-link${isActive ? " active" : ""}`} onClick={handleMobileClose}>{t.nav.clients}</NavLink>
+            <NavLink to="/services" className={({ isActive }) => `nav-mobile-link${isActive ? " active" : ""}`} onClick={handleMobileClose}>{t.nav.services}</NavLink>
+            <NavLink to="/about" className={({ isActive }) => `nav-mobile-link${isActive ? " active" : ""}`} onClick={handleMobileClose}>{t.nav.about}</NavLink>
+            <NavLink to="/testimonials" className={({ isActive }) => `nav-mobile-link${isActive ? " active" : ""}`} onClick={handleMobileClose}>{t.nav.testimonials}</NavLink>
+            <NavLink to="/news" className={({ isActive }) => `nav-mobile-link${isActive ? " active" : ""}`} onClick={handleMobileClose}>{t.nav.news}</NavLink>
+            <NavLink to="/projects" className={({ isActive }) => `nav-mobile-link${isActive ? " active" : ""}`} onClick={handleMobileClose}>{t.nav.projects}</NavLink>
+            <NavLink to="/careers" className={({ isActive }) => `nav-mobile-link${isActive ? " active" : ""}`} onClick={handleMobileClose}>{t.nav.career}</NavLink>
+            {isLoggedIn && (
+              <NavLink to="/admin/dashboard" className={({ isActive }) => `nav-mobile-link${isActive ? " active" : ""}`} onClick={handleMobileClose}>{t.nav.admin}</NavLink>
+            )}
+            <div className="nav-mobile-divider" />
+            <div className="nav-mobile-actions">
+              <div className="nav-mobile-language-grid" role="group" aria-label={t.nav.selectLanguage}>
+                {languageOptions.map((option) => (
+                  <button
+                    key={option}
+                    type="button"
+                    className={`nav-mobile-language-btn${language === option ? " active" : ""}`}
+                    onClick={() => setLanguage(option)}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+              <NavLink className="btn btn-primary" to="/contact" onClick={handleMobileClose}>
+                {t.nav.contactUs}
+              </NavLink>
+            </div>
+          </nav>
+        </>
+      )}
     </header>
   );
 };
