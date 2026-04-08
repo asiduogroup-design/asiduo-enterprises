@@ -14,6 +14,7 @@ import Testimonials from "./pages/Testimonials.jsx";
 import Projects from "./pages/Projects.jsx";
 import AdminLogin from "./admin/AdminLogin.jsx";
 import AdminDashboard from "./admin/AdminDashboard.jsx";
+import SeoManager from "./components/SeoManager.jsx";
 
 const App = () => (
   <BrowserRouter
@@ -22,6 +23,7 @@ const App = () => (
       v7_relativeSplatPath: true,
     }}
   >
+    <SeoManager />
     <Navbar />
     <Routes>
       <Route path="/" element={<Home />} />
