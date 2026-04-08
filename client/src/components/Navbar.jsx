@@ -1,28 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
-  HiOutlineDocumentText,
   HiOutlineDocument,
   HiOutlineChatBubbleLeftRight,
   HiOutlineCalendarDays,
-  HiOutlineMagnifyingGlass,
 } from "react-icons/hi2";
 import { setAuthToken } from "../services/api.js";
 import { useLanguage } from "../context/LanguageContext.jsx";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [open, setOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(
     Boolean(localStorage.getItem("admin_token"))
   );
   const [mobileOpen, setMobileOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
-  const searchInputRef = useRef(null);
 
   useEffect(() => {
     const handler = () => {
@@ -36,19 +30,6 @@ const Navbar = () => {
       window.removeEventListener("auth-change", authHandler);
     };
   }, []);
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const nextSearch = params.get("search") || "";
-    setSearchTerm(nextSearch);
-    setSearchOpen(Boolean(nextSearch));
-  }, [location.search]);
-
-  useEffect(() => {
-    if (searchOpen) {
-      searchInputRef.current?.focus();
-    }
-  }, [searchOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,35 +53,6 @@ const Navbar = () => {
 
   const handleLanguageChange = (event) => {
     setLanguage(event.target.value);
-  };
-
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    const query = searchTerm.trim();
-
-    if (!query) {
-      setSearchOpen(false);
-      navigate("/clients");
-      return;
-    }
-
-    navigate(`/clients?search=${encodeURIComponent(query)}`);
-  };
-
-  const handleSearchToggle = () => {
-    if (searchOpen && !searchTerm.trim()) {
-      setSearchOpen(false);
-      navigate("/clients");
-      return;
-    }
-
-    setSearchOpen(true);
-  };
-
-  const handleSearchBlur = () => {
-    if (!searchTerm.trim()) {
-      setSearchOpen(false);
-    }
   };
 
   const handleLogout = () => {
@@ -201,38 +153,6 @@ const Navbar = () => {
         )}
       </nav>
       <div className="nav-actions">
-        <form
-          className={`nav-search${searchOpen ? " is-open" : ""}`}
-          onSubmit={handleSearchSubmit}
-        >
-          <label className="sr-only" htmlFor="navbar-search">
-            {t.nav.searchLabel}
-          </label>
-          <button
-            className="nav-search-toggle"
-            type="button"
-            onClick={handleSearchToggle}
-            aria-label={t.nav.searchLabel}
-            aria-expanded={searchOpen}
-            aria-controls="navbar-search"
-          >
-            <HiOutlineMagnifyingGlass aria-hidden="true" />
-          </button>
-          {searchOpen && (
-            <div className="nav-search-panel">
-              <input
-                ref={searchInputRef}
-                id="navbar-search"
-                type="search"
-                value={searchTerm}
-                onChange={(event) => setSearchTerm(event.target.value)}
-                onBlur={handleSearchBlur}
-                placeholder={t.nav.searchPlaceholder}
-                aria-label={t.nav.searchLabel}
-              />
-            </div>
-          )}
-        </form>
         <div className="nav-language">
           <label className="sr-only" htmlFor="language-select">
             {t.nav.selectLanguage}

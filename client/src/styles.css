@@ -203,72 +203,6 @@ a {
   flex-shrink: 0;
 }
 
-.nav-search {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  min-width: 44px;
-}
-
-.nav-search-toggle {
-  width: 42px;
-  height: 42px;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  background: #f7fbfe;
-  color: #56636d;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  padding: 0;
-  flex-shrink: 0;
-}
-
-.nav-search-toggle svg {
-  width: 18px;
-  height: 18px;
-}
-
-.nav-search.is-open {
-  z-index: 30;
-}
-
-.nav-search-panel {
-  position: absolute;
-  top: calc(100% + 12px);
-  right: 0;
-  width: 260px;
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  background: #ffffff;
-  box-shadow: var(--shadow);
-}
-
-.nav-search input {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: #f7fbfe;
-  color: #31414d;
-  padding: 10px 14px;
-  font: inherit;
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.nav-search input:focus {
-  border-color: rgba(31, 136, 201, 0.45);
-  box-shadow: 0 0 0 3px rgba(31, 136, 201, 0.12);
-}
-
-.nav-search-toggle:focus,
-.nav-search-toggle:hover {
-  border-color: rgba(31, 136, 201, 0.35);
-  box-shadow: 0 0 0 3px rgba(31, 136, 201, 0.08);
-}
-
 .nav-language {
   display: none; /* hidden by default; shown on desktop only */
   align-items: center;
@@ -3645,6 +3579,10 @@ textarea {
   padding-bottom: 30px;
 }
 
+.footer-col {
+  min-width: 0;
+}
+
 .footer-col h4 {
   color: #ffffff;
   font-size: 16px;
@@ -3718,6 +3656,12 @@ textarea {
   align-items: flex-start;
   gap: 10px;
   color: #c3cad6;
+}
+
+.contact-row p {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .qr-box {
@@ -3796,11 +3740,6 @@ textarea {
     min-width: 130px;
     font-size: 13px;
     padding: 8px 28px 8px 12px;
-  }
-
-  .nav-search-toggle {
-    width: 38px;
-    height: 38px;
   }
 
   .user-button {
@@ -3951,6 +3890,9 @@ textarea {
   }
 
   .nav-language {
+    display: none;
+  }
+
   .hero {
     padding: 60px 6%;
   }
